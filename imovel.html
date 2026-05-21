@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Residência Exclusiva — Condomínio Parque Residências, Manaus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700;1,6..96,900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: #F8F4EE; color: #2C2416; line-height: 1.7; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    :root {
+      --bg:      #F8F4EE;
+      --bg-alt:  #EDE8DF;
+      --bg-card: #F2EDE5;
+      --dark:    #2C2416;
+      --mid:     #7A6848;
+      --gold:    #C4965A;
+      --gold-lt: #DDB57A;
+      --sage:    #7A8C6E;
+      --sage-lt: #A3B395;
+      --border:  rgba(44,36,22,0.1);
+      --cream:   #FDFAF5;
+      --dim:     rgba(44,36,22,0.55);
+      --ease:    cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── SCROLL PROGRESS ── */
+    #prog { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--sage),var(--gold)); width:0%; z-index:9997; transition:width .1s linear; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 60px; height:76px;
+      transition:background .4s var(--ease), border-color .4s, box-shadow .4s;
+      border-bottom:1px solid transparent;
+    }
+    nav.up {
+      background:rgba(248,244,238,0.96);
+      backdrop-filter:blur(16px);
+      border-color:var(--border);
+      box-shadow:0 2px 24px rgba(44,36,22,0.06);
+    }
+    .nav-brand { font-family:'Bodoni Moda',serif; font-size:1.05rem; font-weight:700; letter-spacing:.05em; color:var(--dark); line-height:1; }
+    .nav-links { display:flex; align-items:center; gap:32px; }
+    .nav-links a { font-size:.65rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); transition:color .3s; }
+    .nav-links a:hover { color:var(--dark); }
+    .nav-btn { font-size:.65rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; background:var(--dark); color:var(--cream); padding:11px 26px; border-radius:2px; transition:background .3s; }
+    .nav-btn:hover { background:var(--sage); }
+
+    /* ── HERO ── */
+    .hero { position:relative; width:100%; height:100vh; min-height:680px; overflow:hidden; display:flex; align-items:flex-end; }
+
+    /* ── SCROLL VIDEO HERO ── */
+    .hero-wrapper { position:relative; /* altura definida por JS */ }
+    .hero-sticky {
+      position:sticky; top:0; height:100vh; overflow:hidden;
+      background:#1a1208;
+    }
+    #heroVideo {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; display:block;
+    }
+    .hero-vignette {
+      position:absolute; inset:0; z-index:1;
+      background:linear-gradient(to top, rgba(26,18,8,0.5) 0%, transparent 60%);
+      pointer-events:none;
+    }
+
+    /* Overlay de fim — aparece quando vídeo termina */
+    .hero-end {
+      position:absolute; inset:0; z-index:2;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:28px; text-align:center; padding:40px;
+      background:rgba(26,18,8,0.45);
+      opacity:0; pointer-events:none;
+      transition:opacity 1s ease;
+    }
+    .hero-end.show { opacity:1; pointer-events:auto; }
+
+    .hero-end-title {
+      font-family:'Bodoni Moda',serif;
+      font-size:clamp(2.8rem,8vw,8rem); font-weight:900; font-style:italic;
+      color:#FDFAF5; line-height:1.05;
+      transform:translateY(30px); opacity:0;
+      transition:transform 1s .1s ease, opacity 1s .1s ease;
+      text-shadow:0 4px 48px rgba(26,18,8,0.4);
+    }
+    .hero-end.show .hero-end-title { transform:translateY(0); opacity:1; }
+
+    .hero-end-sub {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1rem,1.8vw,1.4rem); font-weight:300; font-style:italic;
+      color:rgba(253,250,245,0.7); letter-spacing:.04em;
+      transform:translateY(20px); opacity:0;
+      transition:transform 1s .25s ease, opacity 1s .25s ease;
+    }
+    .hero-end.show .hero-end-sub { transform:translateY(0); opacity:1; }
+
+    .hero-end-btn {
+      display:inline-flex; align-items:center; gap:10px;
+      font-size:.7rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+      background:var(--cream); color:var(--dark); padding:16px 44px; border-radius:2px;
+      transform:translateY(20px); opacity:0;
+      transition:transform 1s .4s ease, opacity 1s .4s ease, background .3s;
+    }
+    .hero-end.show .hero-end-btn { transform:translateY(0); opacity:1; }
+    .hero-end-btn:hover { background:var(--bg); }
+
+    /* Scroll hint no fim */
+    .hero-end-hint {
+      position:absolute; bottom:36px;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      transform:translateY(10px); opacity:0;
+      transition:transform 1s .6s ease, opacity 1s .6s ease;
+    }
+    .hero-end.show .hero-end-hint { transform:translateY(0); opacity:1; }
+    .hero-end-hint span { font-size:.55rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(253,250,245,0.45); writing-mode:vertical-rl; }
+    .sline { width:1px; height:52px; background:rgba(255,255,255,0.18); position:relative; overflow:hidden; }
+    .sline::after { content:''; position:absolute; top:0; left:0; right:0; height:24px; background:rgba(255,255,255,0.6); animation:sdown 2s var(--ease) infinite; }
+
+    /* Barra de progresso do vídeo */
+    .video-progress-bar {
+      position:absolute; bottom:0; left:0; height:2px; z-index:3;
+      background:var(--gold); width:0%; transition:width .05s linear;
+    }
+
+    @keyframes sdown { 0%{transform:translateY(-100%)} 100%{transform:translateY(320%)} }
+    @keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .btn-dark { display:inline-flex; align-items:center; gap:10px; font-size:.68rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; background:var(--cream); color:var(--dark); padding:16px 36px; border-radius:2px; transition:background .3s, transform .3s, box-shadow .3s; }
+    .btn-dark:hover { background:var(--bg); transform:translateY(-2px); box-shadow:0 12px 36px rgba(44,36,22,0.2); }
+    .btn-outline { display:inline-flex; align-items:center; gap:10px; font-size:.68rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.82); border-bottom:1px solid rgba(255,255,255,0.35); padding-bottom:2px; transition:color .3s, border-color .3s; }
+    .btn-outline:hover { color:#fff; border-color:rgba(255,255,255,0.7); }
+
+    /* ── DIVIDER ── */
+    .divider { display:flex; align-items:center; justify-content:center; gap:20px; padding:12px 0; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:var(--border); }
+    .divider-icon { color:var(--gold); flex-shrink:0; }
+
+    /* ── STATS ── */
+    .stats { background:var(--cream); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:52px 60px; }
+    .stats-row { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); }
+    .stat { display:flex; flex-direction:column; align-items:center; text-align:center; padding:16px 28px; border-right:1px solid var(--border); }
+    .stat:last-child { border-right:none; }
+    .stat-n { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,3.5vw,3.5rem); color:var(--dark); line-height:1; }
+    .stat-ico { color:var(--gold); }
+    .stat-l { font-size:.6rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--mid); margin-top:8px; }
+    .stat-d { font-family:'Cormorant Garamond',serif; font-size:.88rem; font-style:italic; color:rgba(44,36,22,0.38); margin-top:2px; }
+
+    /* ── REVEAL ── */
+    .rv { opacity:0; transform:translateY(24px); transition:opacity .75s var(--ease), transform .75s var(--ease); }
+    .rv.on { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s} .d5{transition-delay:.5s}
+
+    /* ── SECTION HELPERS ── */
+    .sec-label { display:inline-flex; align-items:center; gap:12px; font-size:.58rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--sage); }
+    .sec-label::before { content:attr(data-n); font-family:'Cormorant Garamond',serif; font-size:.7rem; font-style:italic; color:var(--gold); }
+    .sec-label::after { content:''; flex:0 0 32px; height:1px; background:var(--sage-lt); }
+    .gold-line { width:48px; height:1px; background:var(--gold); }
+    .sage-line { width:48px; height:1px; background:var(--sage); }
+
+    /* ── A RESIDÊNCIA ── */
+    .residencia { padding:112px 0; background:var(--bg); }
+    .res-inner { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:1fr 1.6fr; gap:88px; align-items:start; }
+    .res-left { position:sticky; top:96px; }
+    .res-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.5rem,4.5vw,4.8rem); font-weight:900; font-style:italic; color:var(--gold); line-height:1.05; margin:14px 0 18px; }
+    .res-loc { display:flex; align-items:center; gap:8px; font-size:.65rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); margin-top:4px; }
+    .res-loc svg { color:var(--sage); flex-shrink:0; }
+    .pullquote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.2rem,2vw,1.75rem); font-weight:300; font-style:italic; color:var(--dark); border-left:2px solid var(--sage); padding-left:28px; margin-bottom:36px; line-height:1.65; }
+    .res-p { font-size:.86rem; font-weight:300; color:var(--dim); line-height:2.05; margin-bottom:20px; }
+    .res-p strong { color:var(--dark); font-weight:500; }
+
+    /* ── GALERIA ── */
+    .gallery { padding:96px 0 112px; background:var(--cream); }
+    .gal-head { max-width:1160px; margin:0 auto 52px; padding:0 60px; display:flex; align-items:flex-end; justify-content:space-between; }
+    .gal-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-top:10px; }
+    .gal-note { font-size:.68rem; color:var(--mid); font-style:italic; max-width:200px; text-align:right; line-height:1.85; }
+
+    /* ── GALERIA POR CÔMODOS ── */
+    .rooms-grid { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+    .room-card { position:relative; height:280px; overflow:hidden; cursor:pointer; background:var(--bg-alt); }
+    .room-card.wide { grid-column:span 2; }
+    .room-cover { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .65s var(--ease); }
+    .room-card:hover .room-cover { transform:scale(1.06); }
+    .room-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(18,12,5,.78) 0%, rgba(18,12,5,.1) 52%, transparent 100%); transition:opacity .3s; }
+    .room-card:hover .room-overlay { opacity:.85; }
+    .room-info { position:absolute; bottom:0; left:0; right:0; padding:18px 20px; }
+    .room-name { display:block; font-family:'Bodoni Moda',serif; font-size:1.08rem; font-weight:700; font-style:italic; color:#FDFAF5; line-height:1.2; margin-bottom:5px; }
+    .room-count { font-size:.5rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(253,250,245,.52); }
+    .room-hover-hint { position:absolute; top:16px; right:16px; opacity:0; transition:opacity .3s; }
+    .room-card:hover .room-hover-hint { opacity:1; }
+    .room-hover-hint span { font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(253,250,245,.7); background:rgba(18,12,5,.5); border:1px solid rgba(253,250,245,.18); padding:5px 12px; backdrop-filter:blur(4px); }
+
+    /* ── ROOM PAGE ── */
+    #roomPage { position:fixed; inset:0; z-index:1500; background:var(--bg); overflow-y:auto; display:none; }
+    #roomPage.open { display:block; }
+    .rp-header { position:sticky; top:0; z-index:10; background:var(--bg); border-bottom:1px solid var(--border); padding:18px 60px; display:flex; align-items:center; gap:36px; }
+    .rp-back { display:inline-flex; align-items:center; gap:10px; font-size:.54rem; letter-spacing:.24em; text-transform:uppercase; color:var(--sage); background:none; border:none; cursor:pointer; padding:6px 0; transition:color .2s; flex-shrink:0; }
+    .rp-back:hover { color:var(--dark); }
+    .rp-head-info {}
+    .rp-eyebrow { font-size:.48rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+    .rp-title { font-family:'Bodoni Moda',serif; font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; }
+    .rp-count { font-size:.48rem; letter-spacing:.2em; text-transform:uppercase; color:var(--mid); margin-top:3px; }
+
+    /* EDITORIAL PHOTO GRID */
+    .photo-grid { max-width:1280px; margin:0 auto; padding:28px 48px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:7px; grid-auto-rows:310px; grid-auto-flow:dense; }
+    .photo-item { position:relative; overflow:hidden; cursor:pointer; background:var(--bg-alt); }
+    .photo-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s var(--ease); }
+    .photo-item:hover img { transform:scale(1.05); }
+    .ph-land { grid-column:span 2; }
+    .ph-port { grid-row:span 2; }
+
+    /* PHOTO VIEWER (fullscreen) */
+    #photoViewer { position:fixed; inset:0; z-index:2500; background:rgba(8,5,2,.97); display:none; flex-direction:column; }
+    #photoViewer.open { display:flex; }
+    .pv-stage { flex:1; display:flex; align-items:center; justify-content:center; width:100%; padding:56px 80px; box-sizing:border-box; overflow:hidden; }
+    .pv-img { max-width:100%; max-height:100%; object-fit:contain; transition:opacity .18s ease; display:block; }
+    .pv-close { position:absolute; top:18px; right:20px; z-index:10; width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:rgba(253,250,245,.52); background:none; border:none; cursor:pointer; border-radius:50%; transition:color .2s, background .2s; }
+    .pv-close:hover { color:#fff; background:rgba(255,255,255,.1); }
+    .pv-arrow { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; padding:18px 14px; font-size:2.4rem; line-height:1; color:rgba(253,250,245,.32); transition:color .2s; z-index:10; }
+    .pv-arrow:hover { color:rgba(253,250,245,.88); }
+    .pv-prev { left:0; }
+    .pv-next { right:0; }
+    .pv-footer { padding:12px 28px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(253,250,245,.06); }
+    .pv-room { font-family:'Bodoni Moda',serif; font-style:italic; font-size:.88rem; color:rgba(253,250,245,.75); }
+    .pv-counter { font-size:.52rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(253,250,245,.3); }
+
+    /* ── TOUR VIRTUAL ── */
+    .tour { padding:96px 0; background:var(--bg-alt); }
+    .tour-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
+    .tour-head { display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-bottom:48px; align-items:end; }
+    .tour-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 12px; }
+    .tour-desc { font-size:.85rem; font-weight:300; color:var(--dim); line-height:2; align-self:flex-end; }
+    .tour-fs-wrap { display:flex; justify-content:center; margin-top:20px; }
+    .tour-fs-btn { display:inline-flex; align-items:center; gap:10px; font-size:.6rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--mid); border:1px solid var(--border); padding:13px 28px; transition:color .25s, border-color .25s, background .25s; }
+    .tour-fs-btn:hover { color:var(--dark); border-color:var(--sage); background:rgba(122,140,110,0.05); }
+    .tour-fs-btn svg { color:var(--sage); flex-shrink:0; }
+
+    /* EMBED DO TOUR VIRTUAL */
+    .tour-embed {
+      position:relative; width:100%; padding-top:56.25%; /* 16:9 */
+      background:var(--bg-card); border:1px solid var(--border); border-radius:4px; overflow:hidden;
+    }
+    /* Para ativar o tour Matterport (ou outro), substitua o .tour-placeholder por:
+       <iframe src="https://my.matterport.com/show/?m=SEU_ID" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+    */
+    .tour-placeholder {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:16px; padding:32px; text-align:center;
+    }
+    .tour-icon { width:72px; height:72px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--sage); }
+    .tour-placeholder h3 { font-family:'Bodoni Moda',serif; font-size:1.5rem; font-weight:400; color:var(--dark); }
+    .tour-placeholder p { font-size:.78rem; color:var(--mid); max-width:380px; line-height:1.8; }
+    .tour-placeholder .tour-hint { font-size:.65rem; color:var(--sage); font-style:italic; margin-top:4px; background:rgba(122,140,110,0.08); border:1px dashed rgba(122,140,110,0.3); padding:10px 20px; border-radius:2px; }
+    .tour-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px; }
+    .tour-tag { font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); border:1px solid rgba(122,140,110,0.3); padding:5px 14px; border-radius:20px; }
+
+    /* ── FEATURES ── */
+    /* ── DIFERENCIAIS ── */
+    .features {
+      padding: 0; background: #17100A;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 15% 15%, rgba(196,150,90,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 85% 85%, rgba(196,150,90,0.05) 0%, transparent 60%);
+    }
+    .feat-head {
+      max-width:1160px; margin:0 auto; padding:100px 60px 72px;
+      display:flex; justify-content:space-between; align-items:flex-end;
+      border-bottom:1px solid rgba(196,150,90,0.15);
+    }
+    .feat-head .sec-label { color:var(--gold-lt); }
+    .feat-head .sec-label::after { background:rgba(196,150,90,0.35); }
+    .feat-script {
+      font-family:'Bodoni Moda',serif; font-size:clamp(3.5rem,8vw,8.5rem);
+      font-weight:900; font-style:italic; color:#FDFAF5;
+      line-height:0.9; letter-spacing:-0.02em; margin-top:14px;
+    }
+    .feat-head-right {
+      font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic;
+      color:rgba(253,250,245,0.38); max-width:230px; line-height:1.85;
+      text-align:right; padding-bottom:8px;
+    }
+    .feat-grid {
+      max-width:1160px; margin:0 auto; padding:0 60px 100px;
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1px; background:rgba(196,150,90,0.1);
+    }
+    .fc {
+      padding:44px 32px 40px; background:#17100A;
+      position:relative; overflow:hidden; transition:background .4s ease;
+    }
+    .fc:hover { background:#1F1710; }
+    .fc::before {
+      content:attr(data-n); position:absolute; top:-14px; right:20px;
+      font-family:'Bodoni Moda',serif; font-size:7.5rem; font-weight:900;
+      font-style:italic; line-height:1; color:rgba(196,150,90,0.06);
+      pointer-events:none; user-select:none; transition:color .4s ease;
+    }
+    .fc:hover::before { color:rgba(196,150,90,0.14); }
+    .fc::after {
+      content:''; position:absolute; top:0; left:0;
+      width:0; height:2px;
+      background:linear-gradient(90deg, var(--gold), var(--gold-lt));
+      transition:width .55s var(--ease);
+    }
+    .fc:hover::after { width:100%; }
+    .fc-ico { width:32px; height:32px; color:var(--gold); margin-bottom:24px; opacity:.7; }
+    .fc-num {
+      font-family:'Cormorant Garamond',serif; font-size:.68rem; font-style:italic;
+      letter-spacing:.18em; color:var(--gold); opacity:.75; display:block; margin-bottom:10px;
+    }
+    .fc-name {
+      font-family:'Bodoni Moda',serif; font-size:1.1rem; font-weight:400;
+      color:#FDFAF5; line-height:1.3; margin-bottom:14px;
+    }
+    .fc-desc { font-size:.71rem; font-weight:300; color:rgba(253,250,245,0.42); line-height:2; }
+    .fc-mark {
+      position:absolute; bottom:22px; right:24px; width:18px; height:18px;
+      border-right:1px solid rgba(196,150,90,0.2); border-bottom:1px solid rgba(196,150,90,0.2);
+    }
+
+    /* ── SUÍTE MASTER ── */
+    .suite { padding:112px 0; background:var(--cream); }
+    .suite-inner { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:1.1fr 1fr; gap:80px; align-items:center; }
+    .suite-img {
+      position:relative; height:560px; overflow:hidden;
+      background:var(--bg-alt);
+      display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px;
+    }
+    /* Para adicionar foto: substitua o conteúdo por <img src="foto.jpg" style="width:100%;height:100%;object-fit:cover;"> */
+    .suite-img svg { color:rgba(44,36,22,0.2); }
+    .suite-img p { font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(44,36,22,0.28); }
+    .suite-img-lbl { position:absolute; bottom:20px; left:20px; font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); background:rgba(248,244,238,0.85); padding:5px 12px; backdrop-filter:blur(4px); }
+    .suite-frame { position:absolute; inset:18px; border:1px solid rgba(44,36,22,0.1); pointer-events:none; }
+    .suite-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .suite-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.5vw,3.6rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:8px; }
+    .suite-sub { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--mid); margin-bottom:28px; }
+    .suite-fl { border-top:1px solid var(--border); }
+    .suite-fi { display:flex; align-items:flex-start; gap:16px; padding:16px 0; border-bottom:1px solid var(--border); }
+    .suite-fi-ico { flex-shrink:0; width:28px; height:28px; background:rgba(122,140,110,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--sage); }
+    .suite-fi-name { font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--dark); margin-bottom:3px; }
+    .suite-fi-desc { font-size:.76rem; color:var(--dim); font-weight:300; }
+
+    /* ── GOURMET ── */
+    .gourmet { padding:112px 0; background:var(--bg); }
+    .gour-inner { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center; }
+    .gour-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--sage); margin-bottom:10px; }
+    .gour-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.5vw,3.6rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:8px; }
+    .gour-sub { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color:var(--mid); margin-bottom:20px; }
+    .gour-p { font-size:.84rem; font-weight:300; color:var(--dim); line-height:2.05; margin-bottom:28px; }
+    .gour-list {}
+    .gour-li { display:flex; align-items:center; gap:14px; padding:11px 0; border-bottom:1px solid var(--border); font-size:.78rem; color:var(--dark); font-weight:300; }
+    .gour-li::before { content:''; flex-shrink:0; width:20px; height:1px; background:var(--sage); }
+    .gour-imgs { position:relative; height:580px; }
+    .gour-main { position:absolute; top:0; left:0; right:0; height:70%; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; overflow:hidden; }
+    .gour-sec { position:absolute; bottom:0; right:-32px; width:56%; height:42%; background:var(--bg-card); border:4px solid var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; overflow:hidden; }
+    .gour-ph-ico { color:rgba(44,36,22,0.2); }
+    .gour-ph-txt { font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(44,36,22,0.28); }
+    .gour-lbl { position:absolute; bottom:14px; left:14px; font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mid); background:rgba(248,244,238,0.85); padding:4px 10px; backdrop-filter:blur(4px); }
+
+    /* ── SMART HOME ── */
+    .smart { padding:112px 0; background:var(--dark); position:relative; overflow:hidden; }
+    .smart::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(253,250,245,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(253,250,245,0.03) 1px,transparent 1px); background-size:52px 52px; }
+    .smart-inner { max-width:1160px; margin:0 auto; padding:0 60px; position:relative; z-index:1; }
+    .smart-top { display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-bottom:64px; align-items:end; }
+    .smart-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.5rem,4.5vw,5rem); font-weight:900; font-style:italic; color:var(--cream); line-height:1.05; margin:12px 0 10px; }
+    .smart-sub { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color:rgba(253,250,245,0.5); line-height:1.8; align-self:flex-end; }
+    .smart-sys { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(253,250,245,0.06); border:1px solid rgba(253,250,245,0.06); }
+    .ss { padding:40px 28px; background:rgba(44,36,22,0.8); transition:background .3s; }
+    .ss:hover { background:rgba(44,36,22,0.95); }
+    .ss-ico { width:48px; height:48px; border:1px solid rgba(253,250,245,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold-lt); margin-bottom:20px; }
+    .ss-num { font-family:'Cormorant Garamond',serif; font-size:.78rem; font-style:italic; color:var(--gold-lt); display:block; margin-bottom:8px; }
+    .ss-name { font-family:'Bodoni Moda',serif; font-size:1.2rem; font-weight:400; color:var(--cream); margin-bottom:12px; }
+    .ss-desc { font-size:.76rem; font-weight:300; color:rgba(253,250,245,0.5); line-height:1.95; }
+
+    /* ── PISCINA ── */
+    .piscina { padding:112px 0; background:var(--cream); }
+    .pisc-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
+    .pisc-wrap { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:44px; border:1px solid var(--border); overflow:hidden; }
+    .pisc-vis {
+      position:relative; min-height:500px;
+      background:var(--bg-alt);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .ripple { width:100px; height:100px; position:relative; flex-shrink:0; }
+    .ripple::before, .ripple::after, .ripple i { content:''; display:block; position:absolute; inset:0; border-radius:50%; border:1px solid rgba(122,140,110,0.4); animation:rip 3s linear infinite; }
+    .ripple::after { animation-delay:1s; }
+    .ripple i { animation-delay:2s; }
+    @keyframes rip { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(3.5);opacity:0} }
+    .pisc-lbl { position:absolute; bottom:18px; left:18px; font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); }
+    .pisc-cnt { padding:64px 52px; background:var(--bg); display:flex; flex-direction:column; justify-content:center; border-left:1px solid var(--border); }
+    .pisc-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--sage); margin-bottom:10px; }
+    .pisc-script { font-family:'Bodoni Moda',serif; font-size:clamp(1.9rem,3.2vw,3.2rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:16px; }
+    .pisc-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:2.0; margin-bottom:28px; }
+    .pisc-det { display:flex; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border); font-size:.76rem; color:var(--dark); font-weight:300; }
+    .pisc-det svg { color:var(--sage); flex-shrink:0; }
+
+    /* ── MOBILIÁRIO ── */
+    .mob { padding:112px 0; background:var(--bg-alt); }
+    .mob-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
+    .mob-head { text-align:center; margin-bottom:64px; }
+    .mob-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.5rem,5vw,5.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
+    .mob-sub { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--mid); }
+    .brands { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .brand { padding:64px 56px; background:var(--cream); border:1px solid var(--border); position:relative; overflow:hidden; transition:border-color .3s, box-shadow .3s; }
+    .brand:hover { border-color:rgba(122,140,110,0.3); box-shadow:0 8px 40px rgba(44,36,22,0.06); }
+    .brand-ghost { position:absolute; bottom:-10px; right:0; font-family:'Bodoni Moda',serif; font-size:8rem; color:rgba(44,36,22,0.035); line-height:1; user-select:none; pointer-events:none; }
+    .brand-n { font-family:'Cormorant Garamond',serif; font-size:.8rem; font-style:italic; color:var(--gold); letter-spacing:.12em; display:block; margin-bottom:20px; }
+    .brand-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.2vw,3.2rem); font-weight:700; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:12px; }
+    .brand-bar { width:40px; height:1px; background:var(--sage); margin:20px 0; }
+    .brand-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:1.95; max-width:360px; }
+    .brand-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:24px; }
+    .brand-tag { font-size:.58rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); border:1px solid var(--border); padding:4px 12px; border-radius:20px; }
+
+    /* ── LOCALIZAÇÃO ── */
+    .loc { padding:112px 0; background:var(--bg); }
+    .loc-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
+    .loc-top { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:44px; align-items:end; }
+    .loc-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
+    .loc-addr { display:flex; align-items:center; gap:8px; font-size:.68rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); }
+    .loc-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:2.0; align-self:flex-end; }
+    .map-box { position:relative; height:380px; background:var(--bg-alt); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; overflow:hidden; }
+    .map-g { position:absolute; inset:0; background-image:linear-gradient(rgba(44,36,22,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(44,36,22,0.04) 1px,transparent 1px); background-size:36px 36px; }
+    .map-pin { position:relative; z-index:2; width:52px; height:52px; border:1px solid rgba(122,140,110,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--sage); animation:pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(122,140,110,0.25)} 50%{box-shadow:0 0 0 16px rgba(122,140,110,0)} }
+    .map-txt { position:relative; z-index:2; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); }
+
+    /* ── CTA ── */
+    .cta { padding:140px 0; background:var(--dark); position:relative; overflow:hidden; }
+    .cta::before { content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(112deg, transparent 0, transparent 70px, rgba(253,250,245,0.015) 70px, rgba(253,250,245,0.015) 72px); }
+    .cta-inner { max-width:760px; margin:0 auto; padding:0 60px; text-align:center; position:relative; z-index:1; }
+    .cta-script { font-family:'Bodoni Moda',serif; font-size:clamp(3rem,6.5vw,6.5rem); font-weight:900; font-style:italic; color:var(--cream); line-height:1.05; margin:0 0 12px; }
+    .cta-sub { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-style:italic; color:rgba(253,250,245,0.5); margin-bottom:52px; line-height:1.8; }
+    .btn-wa { display:inline-flex; align-items:center; gap:14px; font-size:.7rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; background:var(--cream); color:var(--dark); padding:18px 46px; border-radius:2px; transition:background .3s, transform .3s, box-shadow .3s; }
+    .btn-wa:hover { background:var(--bg); transform:translateY(-2px); box-shadow:0 14px 44px rgba(253,250,245,0.1); }
+    .cta-div { width:1px; height:52px; background:rgba(253,250,245,0.12); margin:20px auto; }
+    .cta-note { font-size:.66rem; color:rgba(253,250,245,0.35); font-style:italic; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--bg-alt); border-top:1px solid var(--border); padding:40px 60px; }
+    .foot-in { max-width:1160px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .foot-script { font-family:'Bodoni Moda',serif; font-size:1.1rem; font-weight:700; font-style:italic; color:var(--dark); line-height:1; }
+    .foot-quote { font-family:'Cormorant Garamond',serif; font-size:.88rem; font-style:italic; color:var(--mid); }
+    .foot-copy { font-size:.62rem; color:var(--mid); letter-spacing:.1em; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1060px){
+      .res-inner,.suite-inner,.gour-inner,.pisc-wrap,.loc-top,.smart-top { grid-template-columns:1fr; gap:48px; }
+      .res-left { position:static; }
+      .gour-imgs { height:360px; } .gour-sec { display:none; }
+      .tour-head { grid-template-columns:1fr; gap:28px; }
+      .brands { grid-template-columns:1fr; }
+      .feat-grid { grid-template-columns:1fr 1fr; padding:0 32px 80px; }
+      .smart-sys { grid-template-columns:1fr 1fr; }
+      .pisc-cnt { border-left:none; border-top:1px solid var(--border); }
+    }
+    @media(max-width:760px){
+      nav { padding:0 20px; } .nav-links { display:none; }
+      .hero-body { padding:0 20px 68px; }
+      .hero-scroll { right:20px; }
+      .stats { padding:36px 20px; } .stats-row { grid-template-columns:1fr 1fr; }
+      .stat:nth-child(2) { border-right:none; }
+      .res-inner,.gal-head,.feat-head,.suite-inner,.gour-inner,.smart-inner,.pisc-inner,.mob-inner,.loc-inner,.cta-inner { padding-left:20px; padding-right:20px; }
+
+      /* galeria de cômodos */
+      .rooms-grid { grid-template-columns:1fr 1fr; padding:0 16px; gap:6px; }
+      .room-card.wide { grid-column:span 1; }
+      .room-card { height:190px; }
+      .room-name { font-size:.88rem; }
+
+      /* tour virtual — retrato no mobile */
+      .tour-inner { padding:0 20px; }
+      .tour-head { grid-template-columns:1fr; gap:20px; }
+      .tour-embed { padding-top:125%; }
+
+      /* página de cômodo */
+      .rp-header { padding:12px 16px; gap:14px; }
+      .rp-title { font-size:1.4rem; }
+
+      /* grade editorial mobile: 2 col, landscape full-width, portrait alto */
+      .photo-grid {
+        grid-template-columns:repeat(2,1fr);
+        grid-auto-rows:170px;
+        gap:4px;
+        padding:12px 12px 56px;
+      }
+      .ph-land { grid-column:span 2; grid-row:span 1; } /* largura total, height padrão */
+      .ph-port { grid-column:span 1; grid-row:span 2; } /* metade da largura, 2× altura */
+
+      /* viewer fullscreen */
+      .pv-stage { padding:10px 48px; }
+      .pv-arrow { padding:20px 10px; font-size:2rem; }
+      .pv-footer { padding:8px 16px; }
+      .pv-room { font-size:.78rem; }
+
+      .feat-head { flex-direction:column; align-items:flex-start; gap:16px; padding:56px 20px 40px; }
+      .feat-head-right { text-align:left; max-width:none; }
+      .feat-grid { grid-template-columns:1fr; padding:0 20px 60px; }
+      .smart-sys { grid-template-columns:1fr; }
+      .brand { padding:40px 28px; }
+      .foot-in { flex-direction:column; gap:12px; text-align:center; }
+      footer { padding:32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">Parque Residências</div>
+  <div class="nav-links">
+    <a href="#galeria">Galeria</a>
+    <a href="#tour">Tour Virtual</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a href="#contato" class="nav-btn">Agendar Visita</a>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO — SCROLL-DRIVEN VIDEO
+══════════════════════════════ -->
+<div class="hero-wrapper" id="heroWrapper">
+  <div class="hero-sticky">
+    <video id="heroVideo" muted playsinline preload="auto">
+      <source src="vídeo da Hero Section.mp4" type="video/mp4">
+    </video>
+    <div class="hero-vignette"></div>
+    <div class="video-progress-bar" id="videoProg"></div>
+    <div class="hero-end" id="heroEnd">
+      <div class="hero-end-title">Parque Residências</div>
+      <p class="hero-end-sub">Condomínio Parque Residências · Manaus — AM</p>
+      <a href="#residencia" class="hero-end-btn">Ver mais ↓</a>
+      <div class="hero-end-hint">
+        <div class="sline"></div>
+        <span>Rolar</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-row">
+    <div class="stat rv">
+      <div class="stat-n">4</div>
+      <div class="stat-l">Suítes</div>
+      <div class="stat-d">Todas en-suite</div>
+    </div>
+    <div class="stat rv d1">
+      <div class="stat-ico">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M12 7V5a2 2 0 00-4 0v2"/></svg>
+      </div>
+      <div class="stat-l">Suíte Master</div>
+      <div class="stat-d">2 closets · banheiro duplo</div>
+    </div>
+    <div class="stat rv d2">
+      <div class="stat-ico">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="8" ry="4"/><path d="M4 14v3a8 4 0 0016 0v-3"/><path d="M8 10V8a4 2 0 018 0v2"/></svg>
+      </div>
+      <div class="stat-l">Piscina Privativa</div>
+      <div class="stat-d">Lazer exclusivo</div>
+    </div>
+    <div class="stat rv d3">
+      <div class="stat-ico">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="stat-l">Casa Inteligente</div>
+      <div class="stat-d">Automação completa</div>
+    </div>
+  </div>
+</div>
+
+<!-- A RESIDÊNCIA -->
+<section class="residencia" id="residencia">
+  <div class="res-inner">
+    <div class="res-left rv">
+      <div class="sec-label" data-n="01">A Residência</div>
+      <div class="res-script">Uma obra de arte</div>
+      <div class="gold-line" style="margin-bottom:20px"></div>
+      <div class="res-loc">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Condomínio Parque Residências, Manaus — AM
+      </div>
+    </div>
+    <div>
+      <p class="pullquote rv">"Cada detalhe foi concebido para elevar a experiência de habitar — do mobiliário de autor à inteligência que governa cada ambiente."</p>
+      <p class="res-p rv d1">Localizada no prestigiado <strong>Condomínio Parque Residências</strong>, em Manaus, esta residência representa o ápice do morar bem na capital amazonense. Com <strong>4 suítes completas</strong> e uma suíte master que redefine os padrões de sofisticação, o imóvel oferece uma experiência sensorial única em cada cômodo.</p>
+      <p class="res-p rv d2">A <strong>área gourmet integrada à sala de TV</strong> — que pode ser isolada para total privacidade — cria um espaço multifuncional perfeito para o entretenimento e o cotidiano. Completamente mobiliada com peças <strong>Artefacto e modulados Bontempo</strong>, a casa é uma galeria viva de design brasileiro de alto padrão.</p>
+      <p class="res-p rv d3">Totalmente <strong>automatizada</strong>, com sistemas integrados de segurança, som ambiente e controle inteligente. Uma <strong>piscina privativa</strong> que convida ao descanso exclusivo completa este cenário único.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="gallery" id="galeria">
+  <div class="gal-head">
+    <div>
+      <div class="sec-label rv" data-n="02">Galeria</div>
+      <div class="gal-script rv d1">A residência</div>
+    </div>
+    <p class="gal-note rv d2">Selecione um ambiente para explorar todas as fotos</p>
+  </div>
+
+  <div class="rooms-grid">
+    <!-- Row 1: Fachada(wide) + Sala de Estar + Suíte Master -->
+    <div class="room-card wide rv" data-room-id="fachada">
+      <div class="room-cover" style="background-image:url('fachada/hf_20260520_214553_42bd63df-294c-4984-8f0a-666eee404ae1.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Fachada</span><span class="room-count">10 fotos</span></div>
+    </div>
+    <div class="room-card rv d1" data-room-id="sala-de-estar">
+      <div class="room-cover" style="background-image:url('sala de estar/1.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Sala de Estar</span><span class="room-count">9 fotos</span></div>
+    </div>
+    <div class="room-card rv d2" data-room-id="suite-master">
+      <div class="room-cover" style="background-image:url('suite master/1.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Suíte Master</span><span class="room-count">10 fotos</span></div>
+    </div>
+
+    <!-- Row 2: Área Gourmet + Cozinha(wide) + Piscina -->
+    <div class="room-card rv" data-room-id="area-gourmet">
+      <div class="room-cover" style="background-image:url('área gourmet/hf_20260519_041657_b88ddc25-c8ee-43d0-b904-8d732fd462e1.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Área Gourmet</span><span class="room-count">7 fotos</span></div>
+    </div>
+    <div class="room-card wide rv d1" data-room-id="cozinha">
+      <div class="room-cover" style="background-image:url('cozinha/hf_20260519_004649_0a166393-12b6-4516-ad89-5d84786d4d22.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Cozinha</span><span class="room-count">18 fotos</span></div>
+    </div>
+    <div class="room-card rv d2" data-room-id="area-piscina">
+      <div class="room-cover" style="background-image:url('área da piscina/hf_20260519_025610_d98ec2ce-22fd-47a4-b1c4-679fde932c40.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Área da Piscina</span><span class="room-count">9 fotos</span></div>
+    </div>
+
+    <!-- Row 3: Suíte 2(wide) + Suíte 3 + Suíte Térrea -->
+    <div class="room-card wide rv" data-room-id="suite-2">
+      <div class="room-cover" style="background-image:url('suite 2/hf_20260519_164807_ea044761-be47-465a-bafe-8b0693dde78b.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Suíte 2</span><span class="room-count">10 fotos</span></div>
+    </div>
+    <div class="room-card rv d1" data-room-id="suite-3">
+      <div class="room-cover" style="background-image:url('suite 3/hf_20260520_040640_57e1cc98-a516-49f3-bea0-28e7ef658e46.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Suíte 3</span><span class="room-count">9 fotos</span></div>
+    </div>
+    <div class="room-card rv d2" data-room-id="suite-terrea">
+      <div class="room-cover" style="background-image:url('suite terrea/hf_20260520_202059_8d6d0951-662b-47fe-a697-2000e3cda683.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Suíte Térrea</span><span class="room-count">5 fotos</span></div>
+    </div>
+
+    <!-- Row 4: Closet(wide) + Banheiro(wide) -->
+    <div class="room-card wide rv" data-room-id="closet-master">
+      <div class="room-cover" style="background-image:url('closet suite master/hf_20260519_234939_ef9b74c1-2e78-4dde-89e3-ff658a3f5576.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Closet Suíte Master</span><span class="room-count">3 fotos</span></div>
+    </div>
+    <div class="room-card wide rv d1" data-room-id="banheiro-master">
+      <div class="room-cover" style="background-image:url('banheiro da suite master/hf_20260520_000637_46fb9da6-bca3-4daa-8961-9af6ab4735be.png')"></div>
+      <div class="room-overlay"></div>
+      <div class="room-hover-hint"><span>Ver fotos</span></div>
+      <div class="room-info"><span class="room-name">Banheiro Suíte Master</span><span class="room-count">7 fotos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     TOUR VIRTUAL — COLE SEU EMBED AQUI
+══════════════════════════════ -->
+<section class="tour" id="tour">
+  <div class="tour-inner">
+    <div class="tour-head">
+      <div>
+        <div class="sec-label rv" data-n="03">Tour Virtual</div>
+        <div class="tour-script rv d1">Explore cada ambiente</div>
+      </div>
+      <p class="tour-desc rv d2">Navegue pela residência em 360° sem sair de onde você está. Explore cada cômodo, cada detalhe, no seu próprio ritmo — antes de agendar sua visita presencial.</p>
+    </div>
+
+    <!-- TOUR VIRTUAL MATTERPORT -->
+    <div class="tour-embed rv">
+      <iframe
+        src="https://my.matterport.com/show/?m=KPmqRFATRm2"
+        style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+        frameborder="0"
+        allowfullscreen
+        allow="autoplay; fullscreen; web-share; xr-spatial-tracking;">
+      </iframe>
+    </div>
+
+    <div class="tour-fs-wrap rv">
+      <a href="https://my.matterport.com/show/?m=KPmqRFATRm2" target="_blank" rel="noopener" class="tour-fs-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3M21 8V5a2 2 0 00-2-2h-3M16 21h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Veja em tela cheia
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="features" id="diferenciais">
+  <div class="feat-head">
+    <div>
+      <div class="sec-label rv" data-n="04">Diferenciais</div>
+      <div class="feat-script rv d1">O extraordinário</div>
+    </div>
+    <div class="feat-head-right rv d2">
+      Oito atributos que elevam<br>
+      esta residência a uma<br>
+      categoria singular.
+    </div>
+  </div>
+  <div class="feat-grid">
+    <div class="fc rv" data-n="01">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      <span class="fc-num">01 — Suítes</span>
+      <h3 class="fc-name">4 Suítes Completas</h3>
+      <p class="fc-desc">Quatro suítes com banheiro privativo — privacidade e conforto para todos os moradores e hóspedes.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d1" data-n="02">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h8l6-6V5a2 2 0 00-2-2H5z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="13,3 13,9 19,9"/></svg>
+      <span class="fc-num">02 — Master</span>
+      <h3 class="fc-name">Suíte Master Premium</h3>
+      <p class="fc-desc">Dois closets exclusivos e banheiro duplo com acabamentos de excelência — um santuário particular.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d2" data-n="03">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="fc-num">03 — Gourmet</span>
+      <h3 class="fc-name">Área Gourmet Integrada</h3>
+      <p class="fc-desc">Espaço gourmet integrado à sala de TV, com isolamento opcional — entretenimento sem limites.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d3" data-n="04">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="fc-num">04 — Smart</span>
+      <h3 class="fc-name">Automação Residencial</h3>
+      <p class="fc-desc">Casa 100% automatizada — controle de iluminação, climatização, portões e mais pelo smartphone.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv" data-n="05">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="fc-num">05 — Segurança</span>
+      <h3 class="fc-name">Sistema de Segurança</h3>
+      <p class="fc-desc">Vigilância integrada de alto nível com monitoramento em tempo real e controle de acesso.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d1" data-n="06">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72M19.13 5.09C15.41 9.44 10.19 10.75 2.25 10.94M21.75 12.84c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" stroke-linecap="round"/></svg>
+      <span class="fc-num">06 — Som</span>
+      <h3 class="fc-name">Som Multiambiente</h3>
+      <p class="fc-desc">Sistema de áudio distribuído em toda a residência, da sala à piscina, com qualidade de estúdio.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d2" data-n="07">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="fc-num">07 — Design</span>
+      <h3 class="fc-name">Mobiliário Artefacto</h3>
+      <p class="fc-desc">Peças assinadas Artefacto — referência nacional em design de interiores premium — em cada ambiente.</p>
+      <div class="fc-mark"></div>
+    </div>
+    <div class="fc rv d3" data-n="08">
+      <svg class="fc-ico" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span class="fc-num">08 — Modulados</span>
+      <h3 class="fc-name">Modulados Bontempo</h3>
+      <p class="fc-desc">Soluções modulares Bontempo com acabamento impecável — funcionalidade e elegância em cada espaço.</p>
+      <div class="fc-mark"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUÍTE MASTER -->
+<section class="suite" id="suite">
+  <div class="suite-inner">
+    <div class="suite-img rv">
+      <div class="suite-frame"></div>
+      <img src="suite master/3.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Suíte Master">
+      <div class="suite-img-lbl">Suíte Master · Vista Geral</div>
+    </div>
+    <div class="rv d2">
+      <div class="sec-label" data-n="05" style="margin-bottom:14px">Suíte Master</div>
+      <p class="suite-eye">O Santuário Privado</p>
+      <div class="suite-script">Um universo seu</div>
+      <p class="suite-sub">Exclusividade e conforto em cada detalhe</p>
+      <div class="suite-fl">
+        <div class="suite-fi">
+          <div class="suite-fi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+          <div>
+            <div class="suite-fi-name">Dois Closets Exclusivos</div>
+            <div class="suite-fi-desc">Walk-in closets amplos e organizados para o guarda-roupa mais sofisticado.</div>
+          </div>
+        </div>
+        <div class="suite-fi">
+          <div class="suite-fi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 11l5-5 5 5M7 13l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <div class="suite-fi-name">Banheiro Duplo</div>
+            <div class="suite-fi-desc">Louças e metais premium — privacidade e conforto em perfeita sintonia.</div>
+          </div>
+        </div>
+        <div class="suite-fi">
+          <div class="suite-fi-ico"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <div class="suite-fi-name">Mobiliário Artefacto</div>
+            <div class="suite-fi-desc">Cada peça selecionada com critério — harmonia estética e qualidade duradoura.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÁREA GOURMET -->
+<section class="gourmet" id="gourmet">
+  <div class="gour-inner">
+    <div>
+      <div class="sec-label rv" data-n="06" style="margin-bottom:14px">Área Gourmet</div>
+      <p class="gour-eye rv">O Coração da Casa</p>
+      <div class="gour-script rv d1">O sabor do lar</div>
+      <p class="gour-sub rv d1">Integração, privacidade e sofisticação</p>
+      <p class="gour-p rv d2">A área gourmet foi concebida para transcender a função. Totalmente integrada à sala de TV — e podendo ser isolada para recepções mais formais — cria um ambiente fluido e acolhedor. Com mobiliário Artefacto e acabamentos premium, amplificado pelo sistema de som multiambiente.</p>
+      <ul class="gour-list rv d3">
+        <li class="gour-li">Integração fluida com a sala de TV</li>
+        <li class="gour-li">Isolamento opcional para privacidade total</li>
+        <li class="gour-li">Mobiliário e acabamentos premium</li>
+        <li class="gour-li">Ideal para entretenimento e recepções</li>
+        <li class="gour-li">Som integrado multiambiente</li>
+      </ul>
+    </div>
+    <div class="gour-imgs rv d1">
+      <div class="gour-main">
+        <img src="área gourmet/hf_20260519_041657_b88ddc25-c8ee-43d0-b904-8d732fd462e1.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Área Gourmet">
+        <div class="gour-lbl">Área Gourmet Integrada</div>
+      </div>
+      <div class="gour-sec">
+        <img src="sala de estar/hf_20260519_000945_744c0090-5470-41b8-a9bc-faaf46a112ff.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Sala de TV">
+        <div class="gour-lbl">Sala de TV</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASA INTELIGENTE -->
+<section class="smart" id="automacao">
+  <div class="smart-inner">
+    <div class="smart-top">
+      <div>
+        <div class="sec-label rv" data-n="07" style="color:rgba(253,250,245,0.5)">Tecnologia</div>
+        <div class="smart-script rv d1">Casa inteligente</div>
+      </div>
+      <p class="smart-sub rv d2">Três sistemas integrados. Uma experiência de habitar sem igual — a tecnologia a serviço do seu conforto.</p>
+    </div>
+    <div class="smart-sys">
+      <div class="ss rv">
+        <div class="ss-ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="ss-num">01 — Automação</span>
+        <h3 class="ss-name">Automação Total</h3>
+        <p class="ss-desc">Controle completo via smartphone ou voz — iluminação, climatização, cortinas e portões com precisão e discrição.</p>
+      </div>
+      <div class="ss rv d1">
+        <div class="ss-ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="ss-num">02 — Segurança</span>
+        <h3 class="ss-name">Segurança Integrada</h3>
+        <p class="ss-desc">Sistema de vigilância de última geração, integrado à automação, com monitoramento em tempo real para sua tranquilidade.</p>
+      </div>
+      <div class="ss rv d2">
+        <div class="ss-ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" stroke-linecap="round"/></svg></div>
+        <span class="ss-num">03 — Som</span>
+        <h3 class="ss-name">Som Multiambiente</h3>
+        <p class="ss-desc">Áudio distribuído em toda a residência — da sala à piscina, com qualidade de estúdio em cada cômodo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PISCINA -->
+<section class="piscina" id="piscina">
+  <div class="pisc-inner">
+    <div class="sec-label rv" data-n="08" style="margin-bottom:40px">Lazer Privativo</div>
+    <div class="pisc-wrap">
+      <div class="pisc-vis rv">
+        <img src="área da piscina/hf_20260519_030906_c2973d7b-4c42-424c-828e-1297223ed82d.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" alt="Piscina Privativa">
+        <div class="pisc-lbl">Piscina Privativa</div>
+      </div>
+      <div class="pisc-cnt rv d2">
+        <p class="pisc-eye">Lazer Exclusivo</p>
+        <div class="pisc-script">Sua piscina, seu ritmo</div>
+        <p class="pisc-p">A piscina privativa é o convite perfeito ao descanso e ao lazer exclusivo. Um refúgio dentro do seu próprio lar, integrada ao sistema de som multiambiente, no coração de Manaus.</p>
+        <div class="pisc-det">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Uso exclusivo dos moradores
+        </div>
+        <div class="pisc-det">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Som integrado na área externa
+        </div>
+        <div class="pisc-det">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Privacidade total no condomínio
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILIÁRIO -->
+<section class="mob" id="mobiliario">
+  <div class="mob-inner">
+    <div class="mob-head">
+      <div class="sec-label rv" data-n="09" style="justify-content:center">Mobiliário</div>
+      <div class="mob-script rv d1">Design de Exceção</div>
+      <p class="mob-sub rv d2">Duas marcas. Uma só linguagem de sofisticação.</p>
+    </div>
+    <div class="brands">
+      <div class="brand rv">
+        <div class="brand-ghost">A</div>
+        <span class="brand-n">01 — Ambientes Principais</span>
+        <div class="brand-script">Artefacto</div>
+        <div class="brand-bar"></div>
+        <p class="brand-p">A Artefacto é sinônimo de design brasileiro de alto padrão. Cada peça presente nesta residência carrega décadas de expertise e uma curadoria impecável — arte que se habita.</p>
+        <div class="brand-tags">
+          <span class="brand-tag">Sala de Estar</span>
+          <span class="brand-tag">Sala de Jantar</span>
+          <span class="brand-tag">Suítes</span>
+          <span class="brand-tag">Design Autoral</span>
+        </div>
+      </div>
+      <div class="brand rv d2">
+        <div class="brand-ghost">B</div>
+        <span class="brand-n">02 — Soluções Modulares</span>
+        <div class="brand-script">Bontempo</div>
+        <div class="brand-bar"></div>
+        <p class="brand-p">Bontempo é a referência nacional em móveis planejados de alto padrão. Soluções inteligentes que harmonizam funcionalidade e estética com acabamentos de excelência.</p>
+        <div class="brand-tags">
+          <span class="brand-tag">Cozinha</span>
+          <span class="brand-tag">Closets</span>
+          <span class="brand-tag">Home Office</span>
+          <span class="brand-tag">Planejados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="loc" id="localizacao">
+  <div class="loc-inner">
+    <div class="loc-top">
+      <div>
+        <div class="sec-label rv" data-n="10">Localização</div>
+        <div class="loc-script rv d1">No coração de Manaus</div>
+        <div class="loc-addr rv d2">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Condomínio Parque Residências, Manaus — AM
+        </div>
+      </div>
+      <p class="loc-p rv d2">Localizada em um dos condomínios mais prestigiados de Manaus, a residência oferece a combinação perfeita entre segurança, privacidade e acesso privilegiado aos principais pontos da cidade.</p>
+    </div>
+    <div class="map-box rv">
+      <div class="map-g"></div>
+      <div class="map-pin">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <p class="map-txt">Condomínio Parque Residências · Manaus, AM</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contato">
+  <div class="cta-inner">
+    <div class="sec-label rv" data-n="11" style="justify-content:center;color:rgba(253,250,245,0.4)">Visita Exclusiva</div>
+    <div class="cta-script rv d1">Agende sua visita</div>
+    <p class="cta-sub rv d2">Experiencie pessoalmente o que nenhuma tela é capaz de transmitir. Entre em contato e agende sua visita privativa.</p>
+    <div class="rv d3" style="display:flex;flex-direction:column;align-items:center">
+      <a href="https://wa.me/5592999999999?text=Olá!%20Tenho%20interesse%20em%20agendar%20uma%20visita%20à%20residência%20no%20Condomínio%20Parque%20Residências." class="btn-wa" target="_blank" rel="noopener">
+        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar pelo WhatsApp
+      </a>
+      <div class="cta-div"></div>
+      <p class="cta-note">Atendimento exclusivo · Visitas com hora marcada</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-script">Parque Residências</div>
+    <p class="foot-quote">"O extraordinário mora nos detalhes."</p>
+    <p class="foot-copy">Condomínio Parque Residências · Manaus, AM</p>
+  </div>
+</footer>
+
+<!-- ROOM PAGE -->
+<div id="roomPage">
+  <div class="rp-header">
+    <button class="rp-back" id="rpBack">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Galeria
+    </button>
+    <div class="rp-head-info">
+      <div class="rp-eyebrow">Ambiente</div>
+      <div class="rp-title" id="rpTitle"></div>
+      <div class="rp-count" id="rpCount"></div>
+    </div>
+  </div>
+  <div class="photo-grid" id="photoGrid"></div>
+</div>
+
+<!-- PHOTO VIEWER -->
+<div id="photoViewer">
+  <button class="pv-close" id="pvClose" aria-label="Fechar">&#x2715;</button>
+  <button class="pv-arrow pv-prev" id="pvPrev" aria-label="Anterior">&#x2039;</button>
+  <button class="pv-arrow pv-next" id="pvNext" aria-label="Próxima">&#x203A;</button>
+  <div class="pv-stage">
+    <img class="pv-img" id="pvImg" src="" alt="">
+  </div>
+  <div class="pv-footer">
+    <span class="pv-room" id="pvRoom"></span>
+    <span class="pv-counter" id="pvCounter"></span>
+  </div>
+</div>
+
+<script>
+  /* ── LIGHTBOX ── */
+  const ROOMS = {
+    'fachada': { name:'Fachada', images:['fachada/hf_20260512_225415_9aa57ed3-e128-4741-ac82-048e737afdd4.png','fachada/hf_20260512_225645_9a5a6bc7-6d1a-421c-9b94-7ccf08b147b6.png','fachada/hf_20260520_214553_42bd63df-294c-4984-8f0a-666eee404ae1.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_0.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_1.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_3.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_4.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_5.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_6.png','fachada/hf_20260520_214849_8551cb57-8d3d-44cb-92dd-6a16afdc03a1_cell_8.png'] },
+    'sala-de-estar': { name:'Sala de Estar', images:['sala de estar/1.png','sala de estar/2.png','sala de estar/3.png','sala de estar/4.png','sala de estar/5.png','sala de estar/hf_20260519_000945_744c0090-5470-41b8-a9bc-faaf46a112ff.png','sala de estar/hf_20260519_001029_bc23e064-be09-488e-8520-973e33b81f68.png','sala de estar/hf_20260519_001535_99c8cfe9-9de3-4389-905a-4992e9bdeebd_cell_4.png','sala de estar/hf_20260519_001720_e42abc87-43b6-4fe2-9e50-035874a3557f.png'] },
+    'suite-master': { name:'Suíte Master', images:['suite master/1.png','suite master/2.png','suite master/3.png','suite master/4.png','suite master/5.png','suite master/6.png','suite master/7.png','suite master/hf_20260518_225738_3bf93e0a-ceb5-490e-b309-03eff9cc8cc1.png','suite master/hf_20260518_225915_b28a2b1c-f55a-4e15-967c-9bcd10c23676.png','suite master/hf_20260518_230151_176de94d-4189-44ce-a186-b8bef1ac120e.png'] },
+    'area-gourmet': { name:'Área Gourmet', images:['área gourmet/hf_20260519_040758_327b2990-e43f-4a31-95a2-055bf2d67166.png','área gourmet/hf_20260519_041033_23e0c8c2-ffec-4743-b949-7baeebee22a4.png','área gourmet/hf_20260519_041657_b88ddc25-c8ee-43d0-b904-8d732fd462e1.png','área gourmet/hf_20260519_042050_95afb4b4-676b-4821-ac48-d00f8e5b46fb.png','área gourmet/hf_20260519_160626_34ec0313-006e-49c1-aeb5-57cca717066a.png','área gourmet/hf_20260520_205516_911d67ff-e3ee-4adb-aa7b-e3a8a9a45ed2.png','área gourmet/hf_20260520_210124_49d90255-a60d-454b-8d35-bccf6865d27d.png'] },
+    'cozinha': { name:'Cozinha', images:['cozinha/hf_20260519_004649_0a166393-12b6-4516-ad89-5d84786d4d22.png','cozinha/hf_20260519_004833_89106de8-43e8-4157-b26c-9bff48aa7bdf.png','cozinha/hf_20260519_005024_abe74baf-68ca-44f0-a827-99d0ba642b94.png','cozinha/hf_20260519_010929_7cf8b511-f21b-4e8b-90a7-457ffa127ae2.png','cozinha/hf_20260519_011502_d06f36c6-f167-4c9d-83e3-eafb5c3c9682.png','cozinha/hf_20260519_012118_ee3aada9-bac9-4d03-afa5-95842b69b292.png','cozinha/hf_20260519_012938_290e038d-05cb-4d33-a51e-e24a2218ce61.png','cozinha/hf_20260519_013649_411cb9a3-5c22-4a5e-a9ff-ebe479ee6c08.png','cozinha/hf_20260519_014508_f2dfe978-5e4c-4a6f-9cd9-15e00606575f.png','cozinha/hf_20260519_014949_0457b0d3-fbe1-4f2a-8c84-040a38eedc25.png','cozinha/hf_20260519_015236_90203134-6b96-4f86-b547-49f14078bf27.png','cozinha/hf_20260519_015521_7b981ad0-afb0-4d61-ad9a-32b46ca5c246.png','cozinha/hf_20260519_022328_2a1c507b-4c2a-4aa5-a016-889e69d028c9.png','cozinha/hf_20260519_023351_54e807f1-0d9e-4b21-93ea-3074052b3436.png','cozinha/hf_20260519_024630_5b68cb55-4452-46b6-b957-d32bada0d3c9.png','cozinha/hf_20260519_034908_de473cbf-b67a-4ae5-a0bb-e44a9907d741_cell_1_min.webp','cozinha/hf_20260519_034908_de473cbf-b67a-4ae5-a0bb-e44a9907d741_cell_4_min.webp','cozinha/hf_20260519_034908_ea4b0a49-d06c-4d3f-91b0-50f5be0ad92f_cell_1_min.webp'] },
+    'area-piscina': { name:'Área da Piscina', images:['área da piscina/hf_20260519_025610_d98ec2ce-22fd-47a4-b1c4-679fde932c40.png','área da piscina/hf_20260519_030230_ecb25c22-2709-437b-903c-4a7948e9e45c.png','área da piscina/hf_20260519_030420_14fa83ac-c5e5-4a63-a80f-6e31173fd9b5.png','área da piscina/hf_20260519_030741_97022c92-c9f5-4c2a-be50-5afb8c4a57de.png','área da piscina/hf_20260519_030906_c2973d7b-4c42-424c-828e-1297223ed82d.png','área da piscina/hf_20260519_031516_d19a9141-8f37-4b6a-9ffd-baab237a6dac.png','área da piscina/hf_20260519_034128_4fbe27ba-fa17-427f-a1b5-0e8615f15f17_cell_3.png','área da piscina/hf_20260519_034131_e2b9d400-bfbc-4ff8-9230-1680c5e31364_cell_4_min.webp','área da piscina/hf_20260519_161023_01c4b58f-f0a5-4b3a-8fd1-9c45a5a9422a.png'] },
+    'suite-2': { name:'Suíte 2', images:['suite 2/hf_20260519_164807_ea044761-be47-465a-bafe-8b0693dde78b.png','suite 2/hf_20260519_165338_c8bfcfe8-0717-400a-86bc-d474e82af587.png','suite 2/hf_20260519_165550_04f68033-b2e8-4c28-86f9-b74270585abd.png','suite 2/hf_20260519_170211_79b10124-7751-418e-8876-c75817373d93.png','suite 2/hf_20260519_170942_23e6e513-b2fd-4ee4-8550-fbff9dbfe7a0.png','suite 2/hf_20260519_171529_3885d826-d91e-4374-b56d-b55f74c2b1cc.png','suite 2/hf_20260519_171555_b840ec4d-cb6c-4c91-87d3-dabd24a40ac7.png','suite 2/hf_20260519_172018_8c607eb6-464c-4d61-b5dc-37e3e183fa37.png','suite 2/hf_20260519_172528_632b12fc-87b8-40f8-9d3a-9148c7ba3f3e.png','suite 2/hf_20260519_230244_02577cc6-e54f-4cd9-bec7-f009aad95800.png'] },
+    'suite-3': { name:'Suíte 3', images:['suite 3/hf_20260520_040640_57e1cc98-a516-49f3-bea0-28e7ef658e46.png','suite 3/hf_20260520_140715_743a4f66-bd39-4c9e-a1dc-93970d29b3cd_cell_1_min.webp','suite 3/hf_20260520_140715_743a4f66-bd39-4c9e-a1dc-93970d29b3cd_cell_2_min.webp','suite 3/hf_20260520_140715_743a4f66-bd39-4c9e-a1dc-93970d29b3cd_cell_5_min.webp','suite 3/hf_20260520_140715_743a4f66-bd39-4c9e-a1dc-93970d29b3cd_cell_7_min.webp','suite 3/hf_20260520_140756_e8bb1dff-ec6f-4b14-aa34-d62f48de22e3.png','suite 3/hf_20260520_142205_4a429fe3-4495-4415-81b8-3e8b013a46ff.png','suite 3/hf_20260520_142551_065b75bb-fee0-4f04-9871-b42002c3ba6e.png','suite 3/hf_20260520_143618_1216871f-3967-4e9e-b516-9718aea1f8cb.png'] },
+    'suite-terrea': { name:'Suíte Térrea', images:['suite terrea/hf_20260520_202059_8d6d0951-662b-47fe-a697-2000e3cda683.png','suite terrea/hf_20260520_202814_3c980989-d4dc-4020-9976-633fe7d28590.png','suite terrea/hf_20260520_204655_4e8e02c3-f2cd-4f85-a5f8-f0c83f137db2.png','suite terrea/hf_20260520_211021_260b4b09-933a-4ecc-bea4-64ecee565278.png','suite terrea/hf_20260520_211533_0e59c103-869d-4879-9127-0bb9df033987.png'] },
+    'closet-master': { name:'Closet Suíte Master', images:['closet suite master/hf_20260519_234939_ef9b74c1-2e78-4dde-89e3-ff658a3f5576.png','closet suite master/hf_20260519_235134_304b986d-3466-4f6c-9289-47d4160d2cc9.png','closet suite master/hf_20260519_235903_cd41b9c4-7bb1-41f5-a4e6-c4c111a16948_cell_6.png'] },
+    'banheiro-master': { name:'Banheiro Suíte Master', images:['banheiro da suite master/hf_20260520_000637_46fb9da6-bca3-4daa-8961-9af6ab4735be.png','banheiro da suite master/hf_20260520_024931_edd17bcb-ec25-4cfd-9150-1438d01e5ae8.png','banheiro da suite master/hf_20260520_025516_56b37e5f-43af-4c8d-8e56-c24f15b8ce0a.png','banheiro da suite master/hf_20260520_030228_201304fb-8a52-42b0-8642-cbc066905671_cell_0.png','banheiro da suite master/hf_20260520_030228_201304fb-8a52-42b0-8642-cbc066905671_cell_1.png','banheiro da suite master/hf_20260520_030228_201304fb-8a52-42b0-8642-cbc066905671_cell_5.png','banheiro da suite master/hf_20260520_030334_294c93f5-d78b-4f15-8537-9bca0d5bc083.png'] }
+  };
+
+  /* padrão editorial: landscape(2col) · portrait(2row) · square */
+  const PH_PATTERN = ['ph-land','ph-port','','','ph-port','ph-land','','','ph-land','','ph-port',''];
+
+  const roomPage   = document.getElementById('roomPage');
+  const photoGrid  = document.getElementById('photoGrid');
+  const rpTitle    = document.getElementById('rpTitle');
+  const rpCount    = document.getElementById('rpCount');
+  const photoViewer= document.getElementById('photoViewer');
+  const pvImg      = document.getElementById('pvImg');
+  const pvRoom     = document.getElementById('pvRoom');
+  const pvCounter  = document.getElementById('pvCounter');
+
+  let pvRoomId = null, pvIdx = 0;
+
+  /* ── ROOM PAGE ── */
+  function openRoomPage(roomId) {
+    const room = ROOMS[roomId];
+    rpTitle.textContent = room.name;
+    rpCount.textContent = room.images.length + ' fotos';
+
+    photoGrid.innerHTML = '';
+    room.images.forEach((src, i) => {
+      const cls = PH_PATTERN[i % PH_PATTERN.length];
+      const item = document.createElement('div');
+      item.className = 'photo-item' + (cls ? ' ' + cls : '');
+      const img = document.createElement('img');
+      img.src = src; img.alt = room.name; img.loading = 'lazy';
+      item.appendChild(img);
+      item.addEventListener('click', () => openViewer(roomId, i));
+      photoGrid.appendChild(item);
+    });
+
+    roomPage.classList.add('open');
+    roomPage.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeRoomPage() {
+    roomPage.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('rpBack').addEventListener('click', closeRoomPage);
+
+  /* ── PHOTO VIEWER ── */
+  function openViewer(roomId, idx) {
+    pvRoomId = roomId; pvIdx = idx;
+    showViewerImg();
+    photoViewer.classList.add('open');
+  }
+
+  function showViewerImg() {
+    const room = ROOMS[pvRoomId];
+    pvImg.style.opacity = '0';
+    const tmp = new Image();
+    tmp.onload = () => { pvImg.src = tmp.src; pvImg.style.opacity = '1'; };
+    tmp.src = room.images[pvIdx];
+    if (tmp.complete) { pvImg.src = tmp.src; pvImg.style.opacity = '1'; }
+    pvRoom.textContent = room.name;
+    pvCounter.textContent = (pvIdx + 1) + ' de ' + room.images.length;
+    /* preload adj */
+    [-1, 1].forEach(d => { new Image().src = room.images[(pvIdx + d + room.images.length) % room.images.length]; });
+  }
+
+  function closeViewer() {
+    photoViewer.classList.remove('open');
+    setTimeout(() => { pvImg.src = ''; }, 250);
+  }
+
+  function pvPrev() { pvIdx = (pvIdx - 1 + ROOMS[pvRoomId].images.length) % ROOMS[pvRoomId].images.length; showViewerImg(); }
+  function pvNext() { pvIdx = (pvIdx + 1) % ROOMS[pvRoomId].images.length; showViewerImg(); }
+
+  document.getElementById('pvClose').addEventListener('click', closeViewer);
+  document.getElementById('pvPrev').addEventListener('click', pvPrev);
+  document.getElementById('pvNext').addEventListener('click', pvNext);
+
+  document.addEventListener('keydown', e => {
+    if (photoViewer.classList.contains('open')) {
+      if (e.key === 'ArrowLeft') pvPrev();
+      else if (e.key === 'ArrowRight') pvNext();
+      else if (e.key === 'Escape') closeViewer();
+      return;
+    }
+    if (roomPage.classList.contains('open') && e.key === 'Escape') closeRoomPage();
+  });
+
+  /* swipe no viewer */
+  let pvTouchX = 0;
+  photoViewer.addEventListener('touchstart', e => { pvTouchX = e.touches[0].clientX; }, {passive:true});
+  photoViewer.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - pvTouchX;
+    if (Math.abs(dx) > 48) dx < 0 ? pvNext() : pvPrev();
+  }, {passive:true});
+
+  document.querySelectorAll('.room-card').forEach(card => {
+    card.addEventListener('click', () => openRoomPage(card.dataset.roomId));
+  });
+
+  /* ── FORÇAR TOPO AO CARREGAR ── */
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  /* ── SCROLL PROGRESS BAR ── */
+  const prog = document.getElementById('prog');
+  window.addEventListener('scroll', () => {
+    prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+  }, {passive:true});
+
+  /* ── NAV ── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('up', window.scrollY > 50), {passive:true});
+
+  /* ── REVEAL ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+  }, {threshold:.1, rootMargin:'0px 0px -32px 0px'});
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+  /* ── SCROLL-DRIVEN VIDEO HERO ── */
+  const heroWrapper = document.getElementById('heroWrapper');
+  const heroVideo   = document.getElementById('heroVideo');
+  const heroEnd     = document.getElementById('heroEnd');
+  const videoProg   = document.getElementById('videoProg');
+
+  /* espaço extra (em vh) mantido na hero após o vídeo terminar;
+     o usuário precisa rolar esse espaço para sair da seção */
+  const DWELL_VH = 2.5;
+
+  let videoFrac  = 0.75; /* fração do scroll total dedicada ao vídeo; atualizada abaixo */
+  let targetProg = 0;
+  let displayProg = 0;
+  let rafPending  = false;
+
+  function setWrapperHeight() {
+    if (!heroVideo.duration) return;
+    const videoScroll = heroVideo.duration * 150;
+    const dwellScroll = window.innerHeight * DWELL_VH;
+    const total       = Math.max(window.innerHeight * 4, videoScroll + dwellScroll);
+    heroWrapper.style.height = (total + window.innerHeight) + 'px';
+    /* fração do scroll que representa o vídeo rodando */
+    videoFrac = videoScroll / total;
+  }
+
+  heroVideo.addEventListener('loadedmetadata', setWrapperHeight);
+  window.addEventListener('resize', setWrapperHeight);
+
+  function calcTargetProg() {
+    const top        = heroWrapper.offsetTop;
+    const scrollable = heroWrapper.offsetHeight - window.innerHeight;
+    const scrolled   = Math.max(0, window.scrollY - top);
+    return Math.min(1, scrolled / scrollable);
+  }
+
+  function heroRaf() {
+    rafPending = false;
+
+    displayProg += (targetProg - displayProg) * 0.12;
+
+    /* vídeo avança apenas durante a fração de scroll do vídeo */
+    const videoPct = videoFrac > 0 ? Math.min(1, displayProg / videoFrac) : 1;
+    if (heroVideo.readyState >= 2 && heroVideo.duration) {
+      heroVideo.currentTime = videoPct * heroVideo.duration;
+    }
+    videoProg.style.width = (videoPct * 100) + '%';
+
+    /* hero-end aparece quando vídeo termina; desaparece se usuário rolar de volta */
+    if (displayProg >= videoFrac) heroEnd.classList.add('show');
+    else heroEnd.classList.remove('show');
+
+    if (Math.abs(targetProg - displayProg) > 0.0003) {
+      rafPending = true;
+      requestAnimationFrame(heroRaf);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    targetProg = calcTargetProg();
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(heroRaf);
+    }
+  }, {passive:true});
+</script>
+</body>
+</html>
