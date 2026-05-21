@@ -572,6 +572,34 @@
       .foot-nav { flex-wrap:wrap; gap:16px; }
       .foot-in { flex-direction:column; gap:8px; text-align:center; padding:20px; }
     }
+
+    /* ── BROKER SYSTEM ── */
+    .nav-brand { user-select:none; cursor:default; }
+    .bk-overlay { position:fixed; inset:0; z-index:9999; background:rgba(14,13,10,0.90); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .3s ease; }
+    .bk-overlay.open { opacity:1; pointer-events:auto; }
+    .bk-modal { background:var(--cream); border-radius:var(--r-lg); padding:52px 48px; width:100%; max-width:460px; box-shadow:var(--shadow-xl); transform:translateY(24px); transition:transform .4s var(--ease-out); position:relative; }
+    .bk-overlay.open .bk-modal { transform:translateY(0); }
+    .bk-close { position:absolute; top:18px; right:18px; width:34px; height:34px; background:none; border:none; cursor:pointer; color:var(--mid); font-size:1rem; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background .2s; }
+    .bk-close:hover { background:rgba(14,13,10,0.07); }
+    .bk-tag { font-size:.52rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .bk-title { font-family:var(--font-display); font-size:2.2rem; font-weight:400; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:8px; letter-spacing:-0.01em; }
+    .bk-sub { font-size:.78rem; font-weight:300; color:var(--mid); line-height:1.75; margin-bottom:32px; }
+    .bk-field { margin-bottom:16px; }
+    .bk-field label { display:block; font-size:.54rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); margin-bottom:8px; }
+    .bk-field input { width:100%; border:1.5px solid var(--border); border-radius:var(--r-sm); padding:14px 16px; font-family:var(--font-body); font-size:.88rem; color:var(--dark); background:#fff; outline:none; transition:border-color .25s; -webkit-appearance:none; }
+    .bk-field input:focus { border-color:var(--gold); }
+    .bk-field input::placeholder { color:rgba(14,13,10,.28); }
+    .bk-btn { width:100%; margin-top:8px; padding:17px 0; background:var(--dark); color:var(--cream); border:none; cursor:pointer; font-family:var(--font-body); font-size:.62rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; border-radius:var(--r-sm); transition:background .25s, transform .2s var(--ease-out); }
+    .bk-btn:hover { background:#2a2820; transform:translateY(-1px); }
+    .bk-err { font-size:.74rem; color:#c0392b; margin-top:10px; display:none; }
+    .bk-link-box { display:none; margin-top:28px; padding:22px; background:var(--bg-alt); border-radius:var(--r-sm); border:1px solid var(--border); }
+    .bk-link-box.show { display:block; }
+    .bk-link-lbl { font-size:.52rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--sage); margin-bottom:10px; }
+    .bk-link-url { font-size:.72rem; color:var(--dark); word-break:break-all; line-height:1.65; margin-bottom:14px; font-family:monospace; }
+    .bk-copy-btn { font-size:.56rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); background:none; border:1px solid var(--gold); border-radius:var(--r-pill); padding:7px 22px; cursor:pointer; transition:all .2s; }
+    .bk-copy-btn:hover { background:var(--gold); color:#fff; }
+    .bk-copy-btn.copied { background:var(--sage); border-color:var(--sage); color:#fff; }
+    @media(max-width:760px){ .bk-modal { padding:40px 28px; } }
   </style>
 </head>
 <body>
@@ -1146,6 +1174,47 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════
+     BROKER SYSTEM — modais
+══════════════════════════════ -->
+<div class="bk-overlay" id="bkPwdOverlay" role="dialog" aria-modal="true" aria-label="Acesso corretor">
+  <div class="bk-modal">
+    <button class="bk-close" id="bkPwdClose" aria-label="Fechar">&#x2715;</button>
+    <div class="bk-tag">Acesso Restrito</div>
+    <div class="bk-title">Área do Corretor</div>
+    <p class="bk-sub">Digite a senha de acesso para criar o seu link personalizado com WhatsApp.</p>
+    <div class="bk-field">
+      <label for="bkPwdInput">Senha de acesso</label>
+      <input type="password" id="bkPwdInput" placeholder="••••••••" autocomplete="off" />
+    </div>
+    <p class="bk-err" id="bkPwdErr">Senha incorreta. Tente novamente.</p>
+    <button class="bk-btn" id="bkPwdSubmit">Entrar</button>
+  </div>
+</div>
+
+<div class="bk-overlay" id="bkPanelOverlay" role="dialog" aria-modal="true" aria-label="Painel do corretor">
+  <div class="bk-modal">
+    <button class="bk-close" id="bkPanelClose" aria-label="Fechar">&#x2715;</button>
+    <div class="bk-tag">Painel do Corretor</div>
+    <div class="bk-title">Crie seu link</div>
+    <p class="bk-sub">Preencha seus dados. O link gerado abrirá o site com o seu número no botão de WhatsApp — cada cliente verá o seu contato direto.</p>
+    <div class="bk-field">
+      <label for="bkName">Seu nome completo</label>
+      <input type="text" id="bkName" placeholder="Ex: João Silva" autocomplete="name" />
+    </div>
+    <div class="bk-field">
+      <label for="bkTel">Seu WhatsApp — DDD + número (somente dígitos)</label>
+      <input type="tel" id="bkTel" placeholder="92912345678" maxlength="11" autocomplete="tel" inputmode="numeric" />
+    </div>
+    <button class="bk-btn" id="bkCreateBtn">Criar Link Personalizado</button>
+    <div class="bk-link-box" id="bkLinkBox">
+      <div class="bk-link-lbl">Seu link personalizado</div>
+      <div class="bk-link-url" id="bkLinkUrl"></div>
+      <button class="bk-copy-btn" id="bkCopyBtn">Copiar link</button>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ── LIGHTBOX ── */
   const ROOMS = {
@@ -1344,6 +1413,141 @@
       requestAnimationFrame(heroRaf);
     }
   }, {passive:true});
+
+  /* ══════════════════════════════════════════════════════
+     BROKER PERSONALIZATION SYSTEM
+     Acesso: duplo-clique no logo "Parque Residências"
+     Senha:  PRK@2025
+  ══════════════════════════════════════════════════════ */
+  (function () {
+    var PWD = 'PRK@2025';
+
+    /* ── 1. Ao carregar a página: aplica link do corretor ── */
+    var sp  = new URLSearchParams(window.location.search);
+    var bkN = sp.get('c');   /* nome do corretor (encoded) */
+    var bkT = sp.get('t');   /* telefone, somente dígitos  */
+
+    if (bkT && /^\d{10,11}$/.test(bkT)) {
+      var msg  = encodeURIComponent('Olá! Tenho interesse em agendar uma visita à residência no Condomínio Parque Residências.');
+      var wUrl = 'https://wa.me/55' + bkT + '?text=' + msg;
+
+      /* substitui todos os links de WhatsApp da página */
+      document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
+        a.href = wUrl;
+      });
+
+      /* personaliza a nota do CTA com o nome do corretor */
+      if (bkN) {
+        var note = document.querySelector('.cta-note');
+        if (note) note.textContent = 'Atendimento exclusivo com ' + decodeURIComponent(bkN);
+      }
+    }
+
+    /* ── 2. Referências aos elementos dos modais ── */
+    var pwdOverlay   = document.getElementById('bkPwdOverlay');
+    var panelOverlay = document.getElementById('bkPanelOverlay');
+    var pwdInput     = document.getElementById('bkPwdInput');
+    var pwdErr       = document.getElementById('bkPwdErr');
+    var linkBox      = document.getElementById('bkLinkBox');
+    var linkUrl      = document.getElementById('bkLinkUrl');
+    var copyBtn      = document.getElementById('bkCopyBtn');
+
+    function openPwd() {
+      pwdOverlay.classList.add('open');
+      pwdInput.value = '';
+      pwdErr.style.display = 'none';
+      setTimeout(function () { pwdInput.focus(); }, 160);
+    }
+
+    function closeAll() {
+      pwdOverlay.classList.remove('open');
+      panelOverlay.classList.remove('open');
+    }
+
+    /* ── 3. Duplo-clique no logo dispara o modal de senha ── */
+    document.querySelector('.nav-brand').addEventListener('dblclick', function (e) {
+      e.preventDefault();
+      openPwd();
+    });
+
+    /* ── 4. Fechar modais ── */
+    document.getElementById('bkPwdClose').addEventListener('click', closeAll);
+    document.getElementById('bkPanelClose').addEventListener('click', closeAll);
+    pwdOverlay.addEventListener('click', function (e) { if (e.target === pwdOverlay) closeAll(); });
+    panelOverlay.addEventListener('click', function (e) { if (e.target === panelOverlay) closeAll(); });
+    /* Escape: só fecha broker modals se nenhum outro modal/viewer estiver aberto */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !photoViewer.classList.contains('open') && !roomPage.classList.contains('open')) {
+        closeAll();
+      }
+    });
+
+    /* ── 5. Validação de senha ── */
+    function submitPwd() {
+      if (pwdInput.value === PWD) {
+        pwdOverlay.classList.remove('open');
+        linkBox.classList.remove('show');
+        document.getElementById('bkName').value = '';
+        document.getElementById('bkTel').value  = '';
+        setTimeout(function () {
+          panelOverlay.classList.add('open');
+          setTimeout(function () { document.getElementById('bkName').focus(); }, 160);
+        }, 230);
+      } else {
+        pwdErr.style.display = 'block';
+        pwdInput.value = '';
+        pwdInput.focus();
+      }
+    }
+
+    document.getElementById('bkPwdSubmit').addEventListener('click', submitPwd);
+    pwdInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') submitPwd(); });
+    document.getElementById('bkName').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('bkTel').focus();
+    });
+    document.getElementById('bkTel').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('bkCreateBtn').click();
+    });
+
+    /* ── 6. Gerar link personalizado ── */
+    document.getElementById('bkCreateBtn').addEventListener('click', function () {
+      var name = document.getElementById('bkName').value.trim();
+      var tel  = document.getElementById('bkTel').value.replace(/\D/g, '');
+      if (!name) { document.getElementById('bkName').focus(); return; }
+      if (tel.length < 10) { document.getElementById('bkTel').focus(); return; }
+
+      var base = window.location.origin + window.location.pathname;
+      var url  = base + '?c=' + encodeURIComponent(name) + '&t=' + tel;
+      linkUrl.textContent = url;
+      linkBox.classList.add('show');
+      copyBtn.textContent = 'Copiar link';
+      copyBtn.classList.remove('copied');
+      linkBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    /* ── 7. Copiar link para a área de transferência ── */
+    copyBtn.addEventListener('click', function () {
+      var url = linkUrl.textContent;
+      function markCopied() {
+        copyBtn.textContent = '✓ Copiado!';
+        copyBtn.classList.add('copied');
+        setTimeout(function () {
+          copyBtn.textContent = 'Copiar link';
+          copyBtn.classList.remove('copied');
+        }, 2800);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(markCopied);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand('copy'); markCopied(); } catch(e) {}
+        document.body.removeChild(ta);
+      }
+    });
+
+  })();
 </script>
 </body>
 </html>
