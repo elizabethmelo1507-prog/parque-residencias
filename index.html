@@ -76,100 +76,61 @@
       border-bottom:1px solid transparent;
     }
     nav.up {
-      background:rgba(248,244,238,0.97);
+      background:rgba(255,254,252,0.97);
       backdrop-filter:blur(20px) saturate(1.2);
+      -webkit-backdrop-filter:blur(20px) saturate(1.2);
       border-color:var(--border);
       box-shadow:var(--shadow-sm);
     }
-    .nav-brand { font-family:var(--font-display); font-size:1.22rem; font-weight:500; letter-spacing:.06em; color:var(--dark); line-height:1; }
+    /* nav sobre foto: texto branco */
+    .nav-brand { font-family:var(--font-display); font-size:1.22rem; font-weight:500; letter-spacing:.06em; color:rgba(253,250,245,0.95); line-height:1; transition:color .4s; }
+    nav.up .nav-brand { color:var(--dark); }
     .nav-links { display:flex; align-items:center; gap:36px; }
-    .nav-links a { font-size:.62rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); transition:color .25s; position:relative; }
+    .nav-links a { font-size:.62rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:rgba(253,250,245,0.68); transition:color .25s; position:relative; }
+    nav.up .nav-links a { color:var(--mid); }
     .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--gold); transition:width .3s var(--ease); }
-    .nav-links a:hover { color:var(--dark); }
+    .nav-links a:hover { color:rgba(253,250,245,1); }
+    nav.up .nav-links a:hover { color:var(--dark); }
     .nav-links a:hover::after { width:100%; }
-    .nav-btn { font-size:.62rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; background:var(--dark); color:var(--cream); padding:12px 28px; border-radius:var(--r-sm); transition:background .25s, transform .2s, box-shadow .25s; }
-    .nav-btn:hover { background:var(--gold-dk); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+    .nav-btn { font-size:.62rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; background:rgba(253,250,245,0.14); color:rgba(253,250,245,0.92); border:1px solid rgba(253,250,245,0.22); padding:12px 28px; border-radius:var(--r-sm); transition:background .3s, color .3s, border-color .3s, transform .2s, box-shadow .25s; }
+    .nav-btn:hover { background:rgba(253,250,245,0.25); transform:translateY(-1px); }
+    nav.up .nav-btn { background:var(--dark); color:var(--cream); border-color:transparent; }
+    nav.up .nav-btn:hover { background:var(--gold-dk); box-shadow:var(--shadow-md); }
 
-    /* ── HERO ── */
-    .hero { position:relative; width:100%; height:100vh; min-height:680px; overflow:hidden; display:flex; align-items:flex-end; }
-
-    /* ── SCROLL VIDEO HERO ── */
-    .hero-wrapper { position:relative; /* altura definida por JS */ }
-    .hero-sticky {
-      position:sticky; top:0; height:100vh; overflow:hidden;
-      background:#1a1208;
+    /* ── HERO — PHOTO ── */
+    .hero { position:relative; width:100%; height:100vh; min-height:680px; overflow:hidden; }
+    .hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; }
+    .hero-overlay {
+      position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:
+        linear-gradient(to bottom,
+          rgba(14,13,10,0.28) 0%,
+          rgba(14,13,10,0.08) 35%,
+          rgba(14,13,10,0.52) 68%,
+          rgba(14,13,10,0.88) 100%);
     }
-    #heroVideo {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; display:block;
+    .hero-body {
+      position:absolute; bottom:0; left:0; right:0; z-index:2;
+      padding:0 64px 88px;
+      animation:heroIn 1.4s var(--ease-out) .15s both;
     }
-    .hero-vignette {
-      position:absolute; inset:0; z-index:1;
-      background:linear-gradient(to top, rgba(26,18,8,0.5) 0%, transparent 60%);
-      pointer-events:none;
-    }
-
-    /* Overlay de fim — aparece quando vídeo termina */
-    .hero-end {
-      position:absolute; inset:0; z-index:2;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      gap:28px; text-align:center; padding:40px;
-      background:rgba(26,18,8,0.45);
-      opacity:0; pointer-events:none;
-      transition:opacity 1s ease;
-    }
-    .hero-end.show { opacity:1; pointer-events:auto; }
-
-    .hero-end-title {
+    .hero-eyebrow { font-size:.58rem; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:rgba(253,250,245,0.62); margin-bottom:22px; }
+    .hero-title {
       font-family:'Bodoni Moda',serif;
-      font-size:clamp(2.8rem,8vw,8rem); font-weight:900; font-style:italic;
-      color:#FDFAF5; line-height:1.05;
-      transform:translateY(30px); opacity:0;
-      transition:transform 1s .1s ease, opacity 1s .1s ease;
-      text-shadow:0 4px 48px rgba(26,18,8,0.4);
+      font-size:clamp(4rem,10vw,10.5rem); font-weight:900; font-style:italic;
+      color:#FDFAF5; line-height:0.88; letter-spacing:-0.025em;
+      text-shadow:0 6px 64px rgba(14,13,10,0.4);
+      margin-bottom:48px;
     }
-    .hero-end.show .hero-end-title { transform:translateY(0); opacity:1; }
-
-    .hero-end-sub {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(1rem,1.8vw,1.4rem); font-weight:300; font-style:italic;
-      color:rgba(253,250,245,0.7); letter-spacing:.04em;
-      transform:translateY(20px); opacity:0;
-      transition:transform 1s .25s ease, opacity 1s .25s ease;
-    }
-    .hero-end.show .hero-end-sub { transform:translateY(0); opacity:1; }
-
-    .hero-end-btn {
-      display:inline-flex; align-items:center; gap:10px;
-      font-size:.68rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
-      background:var(--cream); color:var(--dark); padding:16px 44px; border-radius:var(--r-sm);
-      transform:translateY(20px); opacity:0;
-      transition:transform 1s .4s ease, opacity 1s .4s ease, background .25s, box-shadow .25s, transform .25s;
-    }
-    .hero-end.show .hero-end-btn { transform:translateY(0); opacity:1; }
-    .hero-end-btn:hover { background:#fff; box-shadow:var(--shadow-lg); }
-
-    /* Scroll hint no fim */
-    .hero-end-hint {
-      position:absolute; bottom:36px;
+    .hero-scroll {
+      position:absolute; bottom:44px; right:64px; z-index:2;
       display:flex; flex-direction:column; align-items:center; gap:8px;
-      transform:translateY(10px); opacity:0;
-      transition:transform 1s .6s ease, opacity 1s .6s ease;
     }
-    .hero-end.show .hero-end-hint { transform:translateY(0); opacity:1; }
-    .hero-end-hint span { font-size:.55rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(253,250,245,0.45); writing-mode:vertical-rl; }
-    .sline { width:1px; height:52px; background:rgba(255,255,255,0.18); position:relative; overflow:hidden; }
-    .sline::after { content:''; position:absolute; top:0; left:0; right:0; height:24px; background:rgba(255,255,255,0.6); animation:sdown 2s var(--ease) infinite; }
-
-    /* Barra de progresso do vídeo */
-    .video-progress-bar {
-      position:absolute; bottom:0; left:0; height:2px; z-index:3;
-      background:var(--gold); width:0%; transition:width .05s linear;
-    }
-
+    .hero-scroll span { font-size:.52rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(253,250,245,0.42); writing-mode:vertical-rl; }
+    .sline { width:1px; height:52px; background:rgba(255,255,255,0.16); position:relative; overflow:hidden; }
+    .sline::after { content:''; position:absolute; top:0; left:0; right:0; height:24px; background:rgba(255,255,255,0.58); animation:sdown 2s var(--ease) infinite; }
     @keyframes sdown { 0%{transform:translateY(-100%)} 100%{transform:translateY(320%)} }
-    @keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes heroIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
     .btn-dark { display:inline-flex; align-items:center; gap:10px; font-size:.66rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; background:var(--cream); color:var(--dark); padding:16px 38px; border-radius:var(--r-sm); transition:background .25s, transform .25s var(--ease-out), box-shadow .3s; }
     .btn-dark:hover { background:var(--bg); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
@@ -619,26 +580,21 @@
 </nav>
 
 <!-- ══════════════════════════════
-     HERO — SCROLL-DRIVEN VIDEO
+     HERO — PHOTO
 ══════════════════════════════ -->
-<div class="hero-wrapper" id="heroWrapper">
-  <div class="hero-sticky">
-    <video id="heroVideo" muted playsinline preload="auto">
-      <source src="vídeo da Hero Section.mp4" type="video/mp4">
-    </video>
-    <div class="hero-vignette"></div>
-    <div class="video-progress-bar" id="videoProg"></div>
-    <div class="hero-end" id="heroEnd">
-      <div class="hero-end-title">Parque Residências</div>
-      <p class="hero-end-sub">Condomínio Parque Residências · Manaus — AM</p>
-      <a href="#residencia" class="hero-end-btn">Ver mais ↓</a>
-      <div class="hero-end-hint">
-        <div class="sline"></div>
-        <span>Rolar</span>
-      </div>
-    </div>
+<section class="hero" id="hero">
+  <img class="hero-photo" src="foto da hero.jpg" alt="Condomínio Parque Residências — Manaus, AM" fetchpriority="high">
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <p class="hero-eyebrow">Condomínio Parque Residências · Manaus, AM</p>
+    <h1 class="hero-title">Parque<br>Residências</h1>
+    <a href="#residencia" class="btn-dark">Descobrir ↓</a>
   </div>
-</div>
+  <div class="hero-scroll">
+    <div class="sline"></div>
+    <span>Rolar</span>
+  </div>
+</section>
 
 <!-- STATS -->
 <div class="stats">
@@ -1349,70 +1305,6 @@
   }, {threshold:.1, rootMargin:'0px 0px -32px 0px'});
   document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 
-  /* ── SCROLL-DRIVEN VIDEO HERO ── */
-  const heroWrapper = document.getElementById('heroWrapper');
-  const heroVideo   = document.getElementById('heroVideo');
-  const heroEnd     = document.getElementById('heroEnd');
-  const videoProg   = document.getElementById('videoProg');
-
-  /* espaço extra (em vh) mantido na hero após o vídeo terminar;
-     o usuário precisa rolar esse espaço para sair da seção */
-  const DWELL_VH = 2.5;
-
-  let videoFrac  = 0.75; /* fração do scroll total dedicada ao vídeo; atualizada abaixo */
-  let targetProg = 0;
-  let displayProg = 0;
-  let rafPending  = false;
-
-  function setWrapperHeight() {
-    if (!heroVideo.duration) return;
-    const videoScroll = heroVideo.duration * 150;
-    const dwellScroll = window.innerHeight * DWELL_VH;
-    const total       = Math.max(window.innerHeight * 4, videoScroll + dwellScroll);
-    heroWrapper.style.height = (total + window.innerHeight) + 'px';
-    /* fração do scroll que representa o vídeo rodando */
-    videoFrac = videoScroll / total;
-  }
-
-  heroVideo.addEventListener('loadedmetadata', setWrapperHeight);
-  window.addEventListener('resize', setWrapperHeight);
-
-  function calcTargetProg() {
-    const top        = heroWrapper.offsetTop;
-    const scrollable = heroWrapper.offsetHeight - window.innerHeight;
-    const scrolled   = Math.max(0, window.scrollY - top);
-    return Math.min(1, scrolled / scrollable);
-  }
-
-  function heroRaf() {
-    rafPending = false;
-
-    displayProg += (targetProg - displayProg) * 0.12;
-
-    /* vídeo avança apenas durante a fração de scroll do vídeo */
-    const videoPct = videoFrac > 0 ? Math.min(1, displayProg / videoFrac) : 1;
-    if (heroVideo.readyState >= 2 && heroVideo.duration) {
-      heroVideo.currentTime = videoPct * heroVideo.duration;
-    }
-    videoProg.style.width = (videoPct * 100) + '%';
-
-    /* hero-end aparece quando vídeo termina; desaparece se usuário rolar de volta */
-    if (displayProg >= videoFrac) heroEnd.classList.add('show');
-    else heroEnd.classList.remove('show');
-
-    if (Math.abs(targetProg - displayProg) > 0.0003) {
-      rafPending = true;
-      requestAnimationFrame(heroRaf);
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    targetProg = calcTargetProg();
-    if (!rafPending) {
-      rafPending = true;
-      requestAnimationFrame(heroRaf);
-    }
-  }, {passive:true});
 
   /* ══════════════════════════════════════════════════════
      BROKER PERSONALIZATION SYSTEM
