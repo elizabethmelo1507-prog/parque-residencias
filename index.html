@@ -6,53 +6,61 @@
   <title>Residência Exclusiva — Condomínio Parque Residências, Manaus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700;1,6..96,900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Bodoni+Moda:ital,opsz,wght@1,6..96,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Montserrat', sans-serif; background: #F8F4EE; color: #2C2416; line-height: 1.72; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--dark); line-height: 1.72; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
     :root {
-      /* ── Superfície ── */
-      --bg:        #F8F4EE;
-      --bg-alt:    #EDE8DF;
+      /* ── Fontes ── */
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-hero:    'Bodoni Moda', Georgia, serif;
+      --font-quote:   'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+      /* ── Superfície (Stayli-inspired: limpo, quente) ── */
+      --bg:        #FAFAF7;
+      --bg-alt:    #F4EFE6;
       --bg-card:   #FFFFFF;
-      --cream:     #FDFAF5;
+      --cream:     #FDFCFA;
+      --bg-dark:   #111009;
 
       /* ── Tinta ── */
-      --dark:      #2C2416;
-      --mid:       #7A6848;
-      --dim:       rgba(44,36,22,0.52);
-      --border:    rgba(44,36,22,0.09);
-      --border-md: rgba(44,36,22,0.16);
+      --dark:      #111009;
+      --mid:       #6B6358;
+      --dim:       rgba(17,16,9,0.50);
+      --border:    #E6E0D6;
+      --border-md: rgba(17,16,9,0.16);
 
       /* ── Acento ── */
       --gold:      #C4965A;
-      --gold-lt:   #DDB57A;
-      --gold-dk:   #B8863E;
+      --gold-lt:   #D9AE78;
+      --gold-dk:   #A87A3E;
+      --gold-bg:   rgba(196,150,90,0.09);
       --sage:      #7A8C6E;
       --sage-lt:   #A3B395;
 
       /* ── Motion ── */
-      --ease:      cubic-bezier(0.4,0,0.2,1);
-      --ease-out:  cubic-bezier(0,0,0.2,1);
+      --ease:        cubic-bezier(0.4,0,0.2,1);
+      --ease-out:    cubic-bezier(0,0,0.2,1);
       --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
 
       /* ── Sombras ── */
-      --shadow-xs: 0 1px 4px rgba(44,36,22,0.06);
-      --shadow-sm: 0 2px 10px rgba(44,36,22,0.07);
-      --shadow-md: 0 6px 24px rgba(44,36,22,0.09);
-      --shadow-lg: 0 16px 48px rgba(44,36,22,0.11);
-      --shadow-xl: 0 28px 72px rgba(44,36,22,0.14);
+      --shadow-xs: 0 1px 3px rgba(17,16,9,0.05);
+      --shadow-sm: 0 2px 10px rgba(17,16,9,0.07);
+      --shadow-md: 0 6px 24px rgba(17,16,9,0.08);
+      --shadow-lg: 0 16px 48px rgba(17,16,9,0.10);
+      --shadow-xl: 0 28px 72px rgba(17,16,9,0.13);
 
       /* ── Raios ── */
-      --r-xs:  2px;
-      --r-sm:  6px;
-      --r-md: 12px;
-      --r-lg: 18px;
-      --r-xl: 28px;
+      --r-xs:   2px;
+      --r-sm:   6px;
+      --r-md:  12px;
+      --r-lg:  18px;
+      --r-xl:  28px;
       --r-pill: 999px;
     }
 
@@ -73,7 +81,7 @@
       border-color:var(--border);
       box-shadow:var(--shadow-sm);
     }
-    .nav-brand { font-family:'Bodoni Moda',serif; font-size:1.08rem; font-weight:700; letter-spacing:.04em; color:var(--dark); line-height:1; }
+    .nav-brand { font-family:var(--font-display); font-size:1.12rem; font-weight:400; letter-spacing:.02em; color:var(--dark); line-height:1; }
     .nav-links { display:flex; align-items:center; gap:36px; }
     .nav-links a { font-size:.62rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); transition:color .25s; position:relative; }
     .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--gold); transition:width .3s var(--ease); }
@@ -200,17 +208,17 @@
     .residencia { padding:112px 0; background:var(--bg); }
     .res-inner { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:1fr 1.6fr; gap:88px; align-items:start; }
     .res-left { position:sticky; top:96px; }
-    .res-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.5rem,4.5vw,4.8rem); font-weight:900; font-style:italic; color:var(--gold); line-height:1.05; margin:14px 0 18px; }
+    .res-script { font-family:var(--font-display); font-size:clamp(2.5rem,4.5vw,4.8rem); font-weight:400; font-style:italic; color:var(--dark); line-height:1.05; margin:14px 0 18px; }
     .res-loc { display:flex; align-items:center; gap:8px; font-size:.65rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); margin-top:4px; }
     .res-loc svg { color:var(--sage); flex-shrink:0; }
-    .pullquote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.2rem,2vw,1.75rem); font-weight:300; font-style:italic; color:var(--dark); border-left:2px solid var(--sage); padding-left:28px; margin-bottom:36px; line-height:1.65; }
+    .pullquote { font-family:var(--font-quote); font-size:clamp(1.2rem,2vw,1.75rem); font-weight:300; font-style:italic; color:var(--dark); border-left:2px solid var(--sage); padding-left:28px; margin-bottom:36px; line-height:1.65; }
     .res-p { font-size:.86rem; font-weight:300; color:var(--dim); line-height:2.05; margin-bottom:20px; }
     .res-p strong { color:var(--dark); font-weight:500; }
 
     /* ── GALERIA ── */
     .gallery { padding:96px 0 112px; background:var(--cream); }
     .gal-head { max-width:1160px; margin:0 auto 52px; padding:0 60px; display:flex; align-items:flex-end; justify-content:space-between; }
-    .gal-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-top:10px; }
+    .gal-script { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,4.5rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin-top:10px; }
     .gal-note { font-size:.68rem; color:var(--mid); font-style:italic; max-width:200px; text-align:right; line-height:1.85; }
 
     /* ── GALERIA POR CÔMODOS ── */
@@ -223,7 +231,7 @@
     .room-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(18,12,5,.82) 0%, rgba(18,12,5,.08) 55%, transparent 100%); transition:opacity .3s; }
     .room-card:hover .room-overlay { opacity:.88; }
     .room-info { position:absolute; bottom:0; left:0; right:0; padding:20px 22px; }
-    .room-name { display:block; font-family:'Bodoni Moda',serif; font-size:1.1rem; font-weight:700; font-style:italic; color:#FDFAF5; line-height:1.2; margin-bottom:5px; }
+    .room-name { display:block; font-family:var(--font-display); font-size:1.08rem; font-weight:400; font-style:italic; color:#FDFAF5; line-height:1.2; margin-bottom:5px; }
     .room-count { font-size:.5rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(253,250,245,.5); }
     .room-hover-hint { position:absolute; top:14px; right:14px; opacity:0; transition:opacity .3s; }
     .room-card:hover .room-hover-hint { opacity:1; }
@@ -237,7 +245,7 @@
     .rp-back:hover { color:var(--dark); }
     .rp-head-info {}
     .rp-eyebrow { font-size:.48rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
-    .rp-title { font-family:'Bodoni Moda',serif; font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; }
+    .rp-title { font-family:var(--font-display); font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:400; font-style:italic; color:var(--dark); line-height:1.05; }
     .rp-count { font-size:.48rem; letter-spacing:.2em; text-transform:uppercase; color:var(--mid); margin-top:3px; }
 
     /* EDITORIAL PHOTO GRID */
@@ -260,14 +268,14 @@
     .pv-prev { left:0; }
     .pv-next { right:0; }
     .pv-footer { padding:12px 28px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(253,250,245,.06); }
-    .pv-room { font-family:'Bodoni Moda',serif; font-style:italic; font-size:.88rem; color:rgba(253,250,245,.75); }
+    .pv-room { font-family:var(--font-display); font-style:italic; font-size:.88rem; color:rgba(253,250,245,.75); }
     .pv-counter { font-size:.52rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(253,250,245,.3); }
 
     /* ── TOUR VIRTUAL ── */
     .tour { padding:96px 0; background:var(--bg-alt); }
     .tour-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
     .tour-head { display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-bottom:48px; align-items:end; }
-    .tour-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 12px; }
+    .tour-script { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,4.5rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin:10px 0 12px; }
     .tour-desc { font-size:.85rem; font-weight:300; color:var(--dim); line-height:2; align-self:flex-end; }
     .tour-fs-wrap { display:flex; justify-content:center; margin-top:20px; }
     .tour-fs-btn { display:inline-flex; align-items:center; gap:10px; font-size:.6rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--mid); border:1px solid var(--border-md); padding:13px 28px; border-radius:var(--r-pill); transition:color .25s, border-color .25s, background .25s, transform .2s, box-shadow .25s; }
@@ -288,7 +296,7 @@
       flex-direction:column; gap:16px; padding:32px; text-align:center;
     }
     .tour-icon { width:72px; height:72px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--sage); }
-    .tour-placeholder h3 { font-family:'Bodoni Moda',serif; font-size:1.5rem; font-weight:400; color:var(--dark); }
+    .tour-placeholder h3 { font-family:var(--font-display); font-size:1.5rem; font-weight:400; color:var(--dark); }
     .tour-placeholder p { font-size:.78rem; color:var(--mid); max-width:380px; line-height:1.8; }
     .tour-placeholder .tour-hint { font-size:.65rem; color:var(--sage); font-style:italic; margin-top:4px; background:rgba(122,140,110,0.08); border:1px dashed rgba(122,140,110,0.3); padding:10px 20px; border-radius:2px; }
     .tour-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px; }
@@ -372,7 +380,7 @@
     .suite-img-lbl { position:absolute; bottom:20px; left:20px; font-size:.54rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); background:rgba(253,250,245,0.88); padding:5px 14px; backdrop-filter:blur(8px); border-radius:var(--r-pill); }
     .suite-frame { position:absolute; inset:16px; border:1px solid rgba(44,36,22,0.08); border-radius:calc(var(--r-lg) - 4px); pointer-events:none; }
     .suite-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
-    .suite-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.5vw,3.6rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:8px; }
+    .suite-script { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,3.6rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin-bottom:8px; }
     .suite-sub { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--mid); margin-bottom:28px; }
     .suite-fl { border-top:1px solid var(--border); }
     .suite-fi { display:flex; align-items:flex-start; gap:16px; padding:16px 0; border-bottom:1px solid var(--border); }
@@ -384,7 +392,7 @@
     .gourmet { padding:112px 0; background:var(--bg); }
     .gour-inner { max-width:1160px; margin:0 auto; padding:0 60px; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center; }
     .gour-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--sage); margin-bottom:10px; }
-    .gour-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.5vw,3.6rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:8px; }
+    .gour-script { font-family:var(--font-display); font-size:clamp(2rem,3.5vw,3.6rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin-bottom:8px; }
     .gour-sub { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color:var(--mid); margin-bottom:20px; }
     .gour-p { font-size:.84rem; font-weight:300; color:var(--dim); line-height:2.05; margin-bottom:28px; }
     .gour-list {}
@@ -430,7 +438,7 @@
     .pisc-lbl { position:absolute; bottom:18px; left:18px; font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); }
     .pisc-cnt { padding:64px 52px; background:var(--bg); display:flex; flex-direction:column; justify-content:center; border-left:1px solid var(--border); }
     .pisc-eye { font-size:.56rem; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--sage); margin-bottom:10px; }
-    .pisc-script { font-family:'Bodoni Moda',serif; font-size:clamp(1.9rem,3.2vw,3.2rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:16px; }
+    .pisc-script { font-family:var(--font-display); font-size:clamp(1.9rem,3.2vw,3.2rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin-bottom:16px; }
     .pisc-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:2.0; margin-bottom:28px; }
     .pisc-det { display:flex; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--border); font-size:.76rem; color:var(--dark); font-weight:300; }
     .pisc-det svg { color:var(--sage); flex-shrink:0; }
@@ -439,14 +447,14 @@
     .mob { padding:112px 0; background:var(--bg-alt); }
     .mob-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
     .mob-head { text-align:center; margin-bottom:64px; }
-    .mob-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.5rem,5vw,5.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
+    .mob-script { font-family:var(--font-display); font-size:clamp(2.5rem,5vw,5.5rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
     .mob-sub { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--mid); }
     .brands { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
     .brand { padding:64px 56px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-lg); position:relative; overflow:hidden; transition:border-color .3s var(--ease), box-shadow .35s var(--ease), transform .3s var(--ease); box-shadow:var(--shadow-sm); }
     .brand:hover { border-color:rgba(122,140,110,0.25); box-shadow:var(--shadow-xl); transform:translateY(-4px); }
-    .brand-ghost { position:absolute; bottom:-10px; right:0; font-family:'Bodoni Moda',serif; font-size:8rem; color:rgba(44,36,22,0.035); line-height:1; user-select:none; pointer-events:none; }
+    .brand-ghost { position:absolute; bottom:-10px; right:0; font-family:var(--font-display); font-size:8rem; color:rgba(44,36,22,0.035); line-height:1; user-select:none; pointer-events:none; }
     .brand-n { font-family:'Cormorant Garamond',serif; font-size:.8rem; font-style:italic; color:var(--gold); letter-spacing:.12em; display:block; margin-bottom:20px; }
-    .brand-script { font-family:'Bodoni Moda',serif; font-size:clamp(2rem,3.2vw,3.2rem); font-weight:700; font-style:italic; color:var(--dark); line-height:1.05; margin-bottom:12px; }
+    .brand-script { font-family:var(--font-display); font-size:clamp(2rem,3.2vw,3.2rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin-bottom:12px; }
     .brand-bar { width:40px; height:1px; background:var(--sage); margin:20px 0; }
     .brand-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:1.95; max-width:360px; }
     .brand-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:24px; }
@@ -456,7 +464,7 @@
     .loc { padding:112px 0; background:var(--bg); }
     .loc-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
     .loc-top { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:44px; align-items:end; }
-    .loc-script { font-family:'Bodoni Moda',serif; font-size:clamp(2.2rem,4vw,4.5rem); font-weight:900; font-style:italic; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
+    .loc-script { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,4.5rem); font-weight:400; font-style:normal; color:var(--dark); line-height:1.05; margin:10px 0 14px; }
     .loc-addr { display:flex; align-items:center; gap:8px; font-size:.68rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); }
     .loc-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:2.0; align-self:flex-end; }
     .map-box { position:relative; height:380px; background:var(--bg-alt); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; overflow:hidden; }
@@ -494,7 +502,7 @@
       white-space:nowrap;
     }
     .foot-top { display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; gap:48px; }
-    .foot-brand { font-family:'Bodoni Moda',serif; font-size:1.1rem; font-weight:700; font-style:italic; color:var(--cream); letter-spacing:.04em; }
+    .foot-brand { font-family:var(--font-display); font-size:1.1rem; font-weight:400; font-style:normal; color:var(--cream); letter-spacing:.04em; }
     .foot-tagline { font-family:'Cormorant Garamond',serif; font-size:.95rem; font-style:italic; color:rgba(253,250,245,0.4); margin-top:8px; }
     .foot-nav { display:flex; gap:32px; }
     .foot-nav a { font-size:.58rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:rgba(253,250,245,0.45); transition:color .25s; }
