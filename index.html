@@ -421,19 +421,6 @@
     .brand-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:24px; }
     .brand-tag { font-size:.58rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); border:1px solid var(--border); padding:4px 12px; border-radius:20px; }
 
-    /* ── LOCALIZAÇÃO ── */
-    .loc { padding:112px 0; background:var(--bg); }
-    .loc-inner { max-width:1160px; margin:0 auto; padding:0 60px; }
-    .loc-top { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:44px; align-items:end; }
-    .loc-script { font-family:var(--font-display); font-size:clamp(2.4rem,4.5vw,5rem); font-weight:400; font-style:italic; color:var(--dark); line-height:1.0; margin:10px 0 14px; letter-spacing:-0.01em; }
-    .loc-addr { display:flex; align-items:center; gap:8px; font-size:.68rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); }
-    .loc-p { font-size:.82rem; font-weight:300; color:var(--dim); line-height:2.0; align-self:flex-end; }
-    .map-box { position:relative; height:380px; background:var(--bg-alt); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; overflow:hidden; }
-    .map-g { position:absolute; inset:0; background-image:linear-gradient(rgba(44,36,22,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(44,36,22,0.04) 1px,transparent 1px); background-size:36px 36px; }
-    .map-pin { position:relative; z-index:2; width:52px; height:52px; border:1px solid rgba(122,140,110,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--sage); animation:pulse 2.2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(122,140,110,0.25)} 50%{box-shadow:0 0 0 16px rgba(122,140,110,0)} }
-    .map-txt { position:relative; z-index:2; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); }
-
     /* ── CTA ── */
     .cta { padding:140px 0; background:var(--dark); position:relative; overflow:hidden; }
     .cta::before { content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(112deg, transparent 0, transparent 70px, rgba(253,250,245,0.015) 70px, rgba(253,250,245,0.015) 72px); }
@@ -489,7 +476,7 @@
       .hero-scroll { right:20px; }
       .stats { padding:36px 20px; } .stats-row { grid-template-columns:1fr 1fr; }
       .stat:nth-child(2) { border-right:none; }
-      .res-inner,.gal-head,.feat-head,.suite-inner,.gour-inner,.smart-inner,.pisc-inner,.mob-inner,.loc-inner,.cta-inner { padding-left:20px; padding-right:20px; }
+      .res-inner,.gal-head,.feat-head,.suite-inner,.gour-inner,.smart-inner,.pisc-inner,.mob-inner,.cta-inner { padding-left:20px; padding-right:20px; }
 
       /* galeria de cômodos */
       .rooms-grid { grid-template-columns:1fr 1fr; padding:0 16px; gap:6px; }
@@ -1032,30 +1019,6 @@
           <span class="brand-tag">Planejados</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOCALIZAÇÃO -->
-<section class="loc" id="localizacao">
-  <div class="loc-inner">
-    <div class="loc-top">
-      <div>
-        <div class="sec-label rv" data-n="10">Localização</div>
-        <div class="loc-script rv d1">No coração de Manaus</div>
-        <div class="loc-addr rv d2">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          Condomínio Parque Residências, Manaus — AM
-        </div>
-      </div>
-      <p class="loc-p rv d2">Localizada em um dos condomínios mais prestigiados de Manaus, a residência oferece a combinação perfeita entre segurança, privacidade e acesso privilegiado aos principais pontos da cidade.</p>
-    </div>
-    <div class="map-box rv">
-      <div class="map-g"></div>
-      <div class="map-pin">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <p class="map-txt">Condomínio Parque Residências · Manaus, AM</p>
     </div>
   </div>
 </section>
